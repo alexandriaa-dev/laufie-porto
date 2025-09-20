@@ -31,7 +31,7 @@ export default function Preloader({
   strokeMobile = 3,        // sedikit lebih tebal dari sebelumnya
   strokeDesktop = 4,
   logoSrc = '/laufie.svg',
-  logoRatio = 0.6,          // logo sedikit lebih kecil → jarak ring lebih rapat
+  logoRatio = 1.5,          // logo sedikit lebih kecil → jarak ring lebih rapat
 }: Props) {
   const [phase, setPhase] = useState<'enter' | 'show' | 'exit' | 'done'>('enter')
   const [target, setTarget] = useState(0)   // 0..1 dari loader
