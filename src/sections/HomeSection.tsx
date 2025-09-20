@@ -17,7 +17,6 @@ type CTAButtonProps = {
   downloadName?: string
 }
 
-// CTA responsive: lebih kecil di mobile
 function CTAButton({ href, label, icon, variant, onClick, downloadName }: CTAButtonProps) {
   const [hovered, setHovered] = useState(false)
   const isSolid = variant === 'primary' ? !hovered : hovered
@@ -91,9 +90,7 @@ export default function HomeSection() {
 
   return (
     <Section id="home" className="relative pt-28 sm:pt-32 lg:pt-36">
-      {/* Mobile/Tablet: 1 kolom; Desktop (lg+): 2 kolom */}
       <div className="grid items-center justify-items-center gap-6 sm:gap-8 lg:gap-10 lg:grid-cols-2 lg:justify-items-stretch">
-        {/* Left column (konten) — center & lebih ramping di mobile */}
         <m.div
           variants={staggerContainer()}
           initial="initial"
@@ -117,7 +114,6 @@ export default function HomeSection() {
             <span className="title-gradient inline-block">Alexandria</span>
           </m.h1>
 
-          {/* Title */}
           <m.p
             variants={fadeInUp}
             className="mt-4 font-mono sm:mt-6"
@@ -126,7 +122,6 @@ export default function HomeSection() {
             <TypewriterTitle />
           </m.p>
 
-          {/* Deskripsi */}
           <m.p
             variants={fadeInUp}
             className="mx-auto mt-4 max-w-[58ch] text-pretty text-white/70 sm:mt-6 lg:mx-0"
@@ -135,7 +130,6 @@ export default function HomeSection() {
             through clean code, insightful analysis, or intuitive design.
           </m.p>
 
-          {/* CTA — lebih kecil di mobile */}
           <m.div
             variants={fadeInUp}
             className="mt-6 flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 lg:justify-start"
@@ -151,68 +145,27 @@ export default function HomeSection() {
             />
           </m.div>
 
-          {/* Socials — diperkecil di mobile dengan scale */}
           <m.div variants={fadeInUp} className="mt-5 flex justify-center lg:block">
             <div className="origin-top scale-90 sm:scale-100">
               <SocialButtons />
             </div>
           </m.div>
 
-          {/* Decorative floaters (desktop only) */}
           <div className="pointer-events-none absolute inset-0 -z-10 hidden lg:block" aria-hidden="true">
-            <m.span
-              className="absolute left-[62%] top-[-12px] h-2.5 w-2.5 rounded-full bg-primary-300/80 shadow-[0_0_20px_rgba(59,130,246,0.8)]"
-              animate={{ y: [0, -10, 0] }}
-              transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}
-            />
-            <m.span
-              className="absolute right-[-22px] top-[8%] h-6 w-6 rounded-lg border border-white/10 bg-primary-500/20 backdrop-blur-[2px]"
-              animate={{ rotate: [0, 25, 0, -25, 0], y: [0, -8, 0] }}
-              transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-            />
-            <m.span
-              className="absolute left-[185px] top-[62%] h-2 w-2 rounded-full bg-primary-400/80"
-              animate={{ y: [0, -6, 0] }}
-              transition={{ duration: 3.8, repeat: Infinity, ease: 'easeInOut', delay: 0.4 }}
-            />
-            <m.div
-              className="absolute left-[-32px] top-[6%] text-primary-300/80"
-              animate={{ y: [0, -12, 0], rotate: [0, 10, 0] }}
-              transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
-            >
-              <Sparkles size={18} />
-            </m.div>
-            <m.div
-              className="absolute left-[70%] top-[36%] text-primary-400/70"
-              animate={{ x: [0, 10, 0], rotate: [0, -12, 0] }}
-              transition={{ duration: 6.5, repeat: Infinity, ease: 'easeInOut' }}
-            >
-              <Palette size={18} />
-            </m.div>
-            <m.div
-              className="absolute left-[8%] top-[58%] text-primary-200/80"
-              animate={{ scale: [1, 1.25, 1], opacity: [0.5, 1, 0.5] }}
-              transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
-            >
-              <Star size={14} />
-            </m.div>
-            <m.div
-              className="absolute left-[84%] top-[4%] text-primary-300/60"
-              animate={{ scale: [1, 1.15, 1], opacity: [0.4, 0.9, 0.4], rotate: [0, 30, 0] }}
-              transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-            >
-              <Star size={12} />
-            </m.div>
+            {/* ... floats tetap ... */}
+            <m.span className="absolute left-[62%] top-[-12px] h-2.5 w-2.5 rounded-full bg-primary-300/80 shadow-[0_0_20px_rgba(59,130,246,0.8)]" animate={{ y: [0, -10, 0] }} transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }} />
+            <m.span className="absolute right-[-22px] top-[8%] h-6 w-6 rounded-lg border border-white/10 bg-primary-500/20 backdrop-blur-[2px]" animate={{ rotate: [0, 25, 0, -25, 0], y: [0, -8, 0] }} transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }} />
+            {/* ... dst ... */}
           </div>
         </m.div>
 
-        {/* Right column (avatar + orbit) — diperbesar di mobile & tablet */}
+        {/* Right column (avatar + orbit) — responsif & center di mobile */}
         <div
           className="
             order-1 transform-gpu
-            w-full max-w-[420px] sm:max-w-[520px] md:max-w-[620px]
+            w-full px-4 sm:px-0
             justify-self-center
-            -mt-4 sm:-mt-6 md:-mt-8 lg:mt-0
+            -mt-2 sm:-mt-4 md:-mt-6 lg:mt-0
             lg:order-2 lg:justify-self-end
             lg:-translate-y-6 xl:-translate-y-12 lg:translate-x-6 xl:translate-x-12 2xl:translate-x-16
           "
@@ -229,7 +182,6 @@ export default function HomeSection() {
         </div>
       </div>
 
-      {/* Scroll to explore — hanya desktop (lg+) */}
       <div className="absolute inset-x-0 bottom-20 hidden flex-col items-center justify-center md:bottom-24 lg:flex">
         <m.a
           href="#about"

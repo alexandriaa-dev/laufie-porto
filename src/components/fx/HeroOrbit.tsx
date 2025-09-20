@@ -25,7 +25,7 @@ function Twinkle({ size = 6, duration = 1.8, delay = 0, className = '' }: Twinkl
 export default function HeroOrbit() {
   return (
     // Pakai aspect-square agar selalu lingkaran (width === height) di semua ukuran, termasuk tablet
-    <div className="relative mx-auto grid aspect-square w-[420px] place-items-center md:w-[560px]">
+    <div className="relative mx-auto grid place-items-center aspect-square w-[min(92vw,420px)] sm:w-[min(92vw,480px)] md:w-[560px]">
       {/* Orbit rings */}
       <div
         className="absolute inset-0 rounded-full border border-white/25 opacity-30 orbit-ring"
