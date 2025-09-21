@@ -2,6 +2,7 @@ import Section from '@/components/common/Section'
 import SectionHeading from '@/components/common/SectionHeading'
 import { skillGroups, techStack } from '@/data/skills'
 import { m } from 'framer-motion'
+import { fadeInUp, staggerContainer } from '@/lib/motion/variants'
 import {
   Code2,
   Palette,
@@ -80,12 +81,19 @@ export default function SkillsSection() {
       />
 
       {/* Top 4 skill group cards */}
-      <div className="grid gap-6 md:grid-cols-2">
+      <m.div 
+        className="grid gap-6 md:grid-cols-2"
+        variants={staggerContainer(0.1)}
+        initial="initial"
+        whileInView="animate"
+        viewport={{ once: true, amount: 0.3 }}
+      >
         {skillGroups.map((group, idx) => {
           const grad = chainGrads[idx % 4]
           return (
             <m.div
               key={group.title}
+              variants={fadeInUp}
               className="group relative rounded-2xl"
               whileHover={{ scale: 1.015 }}
               transition={{ type: 'spring', stiffness: 250, damping: 20 }}
@@ -148,18 +156,31 @@ export default function SkillsSection() {
             </m.div>
           )
         })}
-      </div>
+      </m.div>
 
       {/* Technology Stack */}
-      <div className="mt-12">
+      <m.div 
+        className="mt-12"
+        variants={fadeInUp}
+        initial="initial"
+        whileInView="animate"
+        viewport={{ once: true }}
+      >
         <h4 className="mb-5 text-center text-2xl font-semibold">
           <span className="text-grad-4 inline-block">Technology Stack</span>
         </h4>
 
-        <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+        <m.div 
+          className="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5"
+        variants={staggerContainer(0.05)}
+        initial="initial"
+        whileInView="animate"
+        viewport={{ once: true, amount: 0.3 }}
+        >
           {techStack.map((t) => (
             <m.div
               key={t}
+              variants={fadeInUp}
               className="glass group rounded-2xl p-6 text-center grad-hover transition-shadow"
               whileHover={{ y: -6, rotate: -2 }}
               transition={{ type: 'spring', stiffness: 300, damping: 20 }}
@@ -185,8 +206,8 @@ export default function SkillsSection() {
               />
             </m.div>
           ))}
-        </div>
-      </div>
+        </m.div>
+      </m.div>
     </Section>
   )
 }

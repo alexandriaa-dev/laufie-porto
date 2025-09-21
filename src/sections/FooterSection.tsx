@@ -35,33 +35,6 @@ function BrandWithSparkle() {
   )
 }
 
-/* Badge “Available for work” — smooth, tanpa jump di loop */
-function AvailabilityBadge() {
-  return (
-    <span className="inline-flex items-center gap-2 rounded-full border border-emerald-400/25 bg-emerald-400/10 px-3 py-1 text-xs text-emerald-300">
-      <span className="relative inline-flex h-2.5 w-2.5">
-        <m.span
-          className="absolute inset-0 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(16,185,129,0.7)]"
-          animate={{ scale: [1, 1.07, 1], opacity: [1, 0.95, 1] }}
-          transition={{ duration: 2.6, repeat: Infinity, ease: 'easeInOut' }}
-        />
-        <m.span
-          className="absolute inset-0 rounded-full bg-emerald-400/45 will-change-transform"
-          style={{ mixBlendMode: 'screen' }}
-          animate={{ scale: [0.9, 2.4], opacity: [0, 0.55, 0] }}
-          transition={{ duration: 2.8, repeat: Infinity, ease: 'linear', times: [0, 0.2, 1] }}
-        />
-        <m.span
-          className="absolute inset-0 rounded-full bg-emerald-400/35 will-change-transform"
-          style={{ mixBlendMode: 'screen' }}
-          animate={{ scale: [0.9, 2.4], opacity: [0, 0.55, 0] }}
-          transition={{ duration: 2.8, repeat: Infinity, ease: 'linear', delay: 1.4, times: [0, 0.2, 1] }}
-        />
-      </span>
-      Available for work
-    </span>
-  )
-}
 
 /* Back to top link dengan panah memantul + underline gradient saat hover */
 function BackToTop() {
@@ -122,7 +95,6 @@ export function FooterContent() {
             <li>{contact.location}</li>  {/* gunakan location saja */}
             <li>{contact.email}</li>
             <li>{contact.phone}</li>
-            <li className="mt-6"><AvailabilityBadge /></li>
           </ul>
         </div>
       </div>

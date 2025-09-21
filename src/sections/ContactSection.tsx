@@ -6,6 +6,7 @@ import { m } from 'framer-motion'
 import React, { useState } from 'react'
 import { contact } from '@/data/socials'
 import { useToast } from '@/providers/ToastProvider'
+import { fadeInUp, staggerContainer } from '@/lib/motion/variants'
 
 export default function ContactSection() {
   const { toast } = useToast()
@@ -53,9 +54,18 @@ export default function ContactSection() {
         subtitle="I'm always open to discussing opportunities, creative projects, or just having a conversation about technology and design."
       />
 
-      <div className="grid gap-8 lg:grid-cols-2">
+      <m.div 
+        className="grid gap-8 lg:grid-cols-2"
+        variants={staggerContainer(0.1)}
+        initial="initial"
+        whileInView="animate"
+        viewport={{ once: true, amount: 0.3 }}
+      >
         {/* Left: Contact methods */}
-        <div className="space-y-4">
+        <m.div 
+          className="space-y-4"
+          variants={fadeInUp}
+        >
           <ContactCard
             icon={Mail}
             label="Email"
@@ -84,10 +94,11 @@ export default function ContactSection() {
               can bring your ideas to life.
             </p>
           </div>
-        </div>
+        </m.div>
 
         {/* Right: Form */}
-        <form
+        <m.form
+          variants={fadeInUp}
           className="glass relative rounded-2xl p-6 md:p-7"
           onSubmit={async (e) => {
             e.preventDefault()
@@ -219,8 +230,8 @@ export default function ContactSection() {
               )}
             </span>
           </button>
-        </form>
-      </div>
+        </m.form>
+      </m.div>
 
       <div className="mt-16">
         <FooterContent />

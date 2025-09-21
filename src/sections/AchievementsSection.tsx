@@ -4,6 +4,7 @@ import { achievements, achievementsStats } from '@/data/achievements'
 import AchievementCard from '@/components/cards/AchievementCard'
 import { Trophy, Calendar, Building2, Medal, Award } from 'lucide-react'
 import { m } from 'framer-motion'
+import { fadeInUp, staggerContainer } from '@/lib/motion/variants'
 
 function StatIcon({ label, size = 22 }: { label: string; size?: number }) {
   const l = label.toLowerCase()
@@ -65,9 +66,15 @@ export default function AchievementsSection() {
       />
 
       {/* Top stats (tanpa kilau pada card) */}
-      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <m.div 
+        className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4"
+        variants={staggerContainer(0.1)}
+        initial="initial"
+        whileInView="animate"
+        viewport={{ once: true, amount: 0.3 }}
+      >
         {achievementsStats.map((s) => (
-          <div key={s.label} className="glass grad-hover group relative overflow-hidden rounded-2xl p-6 text-center">
+          <m.div key={s.label} variants={fadeInUp} className="glass grad-hover group relative overflow-hidden rounded-2xl p-6 text-center">
             {/* Icon bubble */}
             <div className="mb-4 grid place-items-center">
               <div
@@ -113,27 +120,34 @@ export default function AchievementsSection() {
 
             <div className="text-3xl font-bold">{s.value}</div>
             <div className="mt-1 text-sm text-white/70">{s.label}</div>
-          </div>
+          </m.div>
         ))}
-      </div>
+      </m.div>
 
       {/* List achievements */}
-      <div className="mt-8 grid gap-6 lg:grid-cols-3">
+      <m.div 
+        className="mt-8 grid gap-6 lg:grid-cols-3"
+        variants={staggerContainer(0.1)}
+        initial="initial"
+        whileInView="animate"
+        viewport={{ once: true, amount: 0.3 }}
+      >
         {achievements.map((a, i) => {
           const [from, to] = PAIRS[i % PAIRS.length] // tidak akan sama berurutan
           return (
-            <AchievementCard
-              key={a.id}
-              title={a.title}
-              org={a.org}
-              year={a.year}
-              badge={a.badge}
-              gradientFrom={from}
-              gradientTo={to}
-            />
+            <m.div key={a.id} variants={fadeInUp}>
+              <AchievementCard
+                title={a.title}
+                org={a.org}
+                year={a.year}
+                badge={a.badge}
+                gradientFrom={from}
+                gradientTo={to}
+              />
+            </m.div>
           )
         })}
-      </div>
+      </m.div>
     </Section>
   )
 }

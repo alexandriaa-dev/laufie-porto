@@ -51,8 +51,9 @@ export default function App() {
           {!ready && (
             <Preloader
               onDone={() => setReady(true)}
-              minDurationMs={700}
+              minDurationMs={3000}  // 3 seconds guaranteed for complete 0-100% progression
               timeoutMs={10000}
+              extraHoldMs={800}    // hold at 100% for 800ms before transitioning
               waitFonts
               zIndexClass="z-[999]"
               // ukuran & ketebalan ring + logo yang disesuaikan
@@ -81,8 +82,8 @@ export default function App() {
             aria-hidden={!ready ? true : undefined}
           >
             <main>
-              <HomeSection />
-              <AboutSection />
+              <HomeSection ready={ready} />
+              <AboutSection ready={ready} />
               <SkillsSection />
               <ProjectsSection />
               <AchievementsSection />

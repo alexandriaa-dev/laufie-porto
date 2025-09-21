@@ -5,6 +5,7 @@ import ProjectCard from '@/components/cards/ProjectCard'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { m, AnimatePresence } from 'framer-motion'
 import { useToast } from '@/providers/ToastProvider'
+import { fadeInUp, staggerContainer } from '@/lib/motion/variants'
 
 type TabKey = 'all' | 'web' | 'mobile'
 const TABS: { key: TabKey; label: string }[] = [
@@ -72,7 +73,13 @@ export default function ProjectsSection() {
       />
 
       {/* Tabs with animated pill */}
-      <div className="mx-auto mb-8 w-max rounded-2xl border border-white/10 bg-white/[0.02] p-1 backdrop-blur-sm">
+      <m.div 
+        className="mx-auto mb-8 w-max rounded-2xl border border-white/10 bg-white/[0.02] p-1 backdrop-blur-sm"
+        variants={fadeInUp}
+        initial="initial"
+        whileInView="animate"
+        viewport={{ once: true, amount: 0.3 }}
+      >
         <div
           ref={listRef}
           role="tablist"
@@ -110,7 +117,7 @@ export default function ProjectsSection() {
             )
           })}
         </div>
-      </div>
+      </m.div>
 
       {/* Grid with fade out/in when switching category */}
       <AnimatePresence mode="wait">
@@ -121,11 +128,17 @@ export default function ProjectsSection() {
           exit={{ opacity: 0, y: -8 }}
           transition={{ duration: 0.25, ease: 'easeOut' }}
         >
-          <div className="grid gap-6 md:grid-cols-2">
+          <m.div 
+            className="grid gap-6 md:grid-cols-2"
+            variants={staggerContainer(0.1)}
+            initial="initial"
+            whileInView="animate"
+            viewport={{ once: true, amount: 0.3 }}
+          >
             {filtered.map((p) => (
-              <ProjectCard
-                key={p.id}
-                title={p.title}
+              <m.div key={p.id} variants={fadeInUp}>
+                <ProjectCard
+                  title={p.title}
                 description={p.description}
                 image={p.images[0]?.src}
                 techs={p.techs}
@@ -133,9 +146,10 @@ export default function ProjectsSection() {
                 demo={p.links.find((l) => l.type === 'demo')?.url}
                 repo={p.links.find((l) => l.type === 'repo')?.url}
                 onUnavailable={showUnavailable}
-              />
+                />
+              </m.div>
             ))}
-          </div>
+          </m.div>
         </m.div>
       </AnimatePresence>
     </Section>

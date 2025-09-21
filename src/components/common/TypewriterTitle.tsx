@@ -14,6 +14,7 @@ type Phase = 'typing' | 'pausing' | 'deleting' | 'switching'
 type Props = {
   className?: string
   onVacancyChange?: (isEmpty: boolean) => void // opsional; true saat jeda kosong
+  start?: boolean // control when typewriter starts
 }
 
 const ROLES = [
@@ -31,14 +32,28 @@ const DELETE_MS = 55
 const HOLD_MS = 2000
 const SWITCH_GAP_MS = 250 // jeda kosong antar title
 
-export default function TypewriterTitle({ className, onVacancyChange }: Props) {
+export default function TypewriterTitle({ className, onVacancyChange, start = true }: Props) {
   const [roleIndex, setRoleIndex] = useState(0)
-  const [phase, setPhase] = useState<Phase>('typing')
+  const [phase, setPhase] = useState<Phase>(start ? 'typing' : 'pausing')
   const [subIdx, setSubIdx] = useState(0)
+  const [hasStarted, setHasStarted] = useState(start)
 
   const prevEmpty = useRef<boolean>(false)
 
+  // Handle start prop - when start becomes true, begin typewriter
   useEffect(() => {
+    if (start && !hasStarted) {
+      setHasStarted(true)
+      setRoleIndex(0) // Ensure we start with "Creative Developer"
+      setPhase('typing')
+      setSubIdx(0)
+    }
+  }, [start, hasStarted])
+
+  useEffect(() => {
+    // Don't run typewriter logic if not started
+    if (!hasStarted) return
+
     const full = ROLES[roleIndex].label
     let t: number | undefined
 
@@ -66,7 +81,7 @@ export default function TypewriterTitle({ className, onVacancyChange }: Props) {
     }
 
     return () => { if (t) clearTimeout(t) }
-  }, [phase, subIdx, roleIndex])
+  }, [phase, subIdx, roleIndex, hasStarted])
 
   // Beritahu parent saat kosong/terisi (kalau dipakai)
   const isEmpty = phase === 'switching'

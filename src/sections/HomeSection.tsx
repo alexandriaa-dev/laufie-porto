@@ -53,7 +53,11 @@ function CTAButton({ href, label, icon, variant, onClick, downloadName }: CTABut
   )
 }
 
-export default function HomeSection() {
+type HomeSectionProps = {
+  ready?: boolean
+}
+
+export default function HomeSection({ ready = true }: HomeSectionProps) {
   const { toast } = useToast()
   const cvUrl = `${import.meta.env.BASE_URL}laufie-cv.pdf`
 
@@ -90,17 +94,16 @@ export default function HomeSection() {
 
   return (
     <Section id="home" className="relative pt-28 sm:pt-32 lg:pt-36">
-      <div className="grid items-center justify-items-center gap-6 sm:gap-8 lg:gap-10 lg:grid-cols-2 lg:justify-items-stretch">
+      <div className="flex flex-col items-center justify-center gap-6 sm:gap-8 lg:gap-10 lg:grid lg:grid-cols-2 lg:items-center lg:justify-items-stretch">
         <m.div
           variants={staggerContainer()}
           initial="initial"
-          whileInView="animate"
-          viewport={{ once: true }}
+          animate={ready ? "animate" : "initial"}
           className="
             relative order-2 transform-gpu text-center
             w-full max-w-[320px] px-4 sm:max-w-[420px] sm:px-0 md:max-w-[560px]
-            mx-auto
-            lg:order-1 lg:max-w-none lg:text-left
+            mx-auto flex flex-col items-center justify-center
+            lg:order-1 lg:max-w-none lg:text-left lg:items-start lg:justify-start
             lg:-translate-y-6 xl:-translate-y-8
           "
         >
@@ -119,7 +122,7 @@ export default function HomeSection() {
             className="mt-4 font-mono sm:mt-6"
             style={{ fontSize: 'clamp(16px, 5.2vw, 32px)' }}
           >
-            <TypewriterTitle />
+            <TypewriterTitle start={ready} />
           </m.p>
 
           <m.p
@@ -162,20 +165,18 @@ export default function HomeSection() {
         {/* Right column (avatar + orbit) — responsif & center di mobile */}
         <div
           className="
-            order-1 transform-gpu
+            order-1 transform-gpu flex items-center justify-center
             w-full px-4 sm:px-0
-            justify-self-center
             -mt-2 sm:-mt-4 md:-mt-6 lg:mt-0
-            lg:order-2 lg:justify-self-end
+            lg:order-2 lg:justify-self-end lg:items-start lg:justify-start
             lg:-translate-y-6 xl:-translate-y-12 lg:translate-x-6 xl:translate-x-12 2xl:translate-x-16
           "
         >
           <m.div
             initial={{ opacity: 0, scale: 0.92 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
+            animate={ready ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.92 }}
             transition={{ duration: 0.6 }}
-            className="mx-auto flex items-center justify-center"
+            className="flex items-center justify-center w-full"
           >
             <HeroOrbit />
           </m.div>
