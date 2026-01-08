@@ -13,20 +13,27 @@ export default function ImageWithFallback({
   
   // Reset error state dan update src ketika src berubah
   useEffect(() => {
-    setError(false)
-    setCurrentSrc(src || fallback)
+    if (src) {
+      setError(false)
+      setCurrentSrc(src)
+    } else {
+      setCurrentSrc(fallback)
+    }
   }, [src, fallback])
   
   const handleError = () => {
-    if (!error && currentSrc !== fallback) {
+    if (currentSrc !== fallback) {
       setError(true)
       setCurrentSrc(fallback)
     }
   }
   
+  // Jika src kosong, langsung pakai fallback
+  const displaySrc = (!src || src.trim() === '') ? fallback : currentSrc
+  
   return (
     <img
-      src={currentSrc}
+      src={displaySrc}
       alt={alt}
       loading="lazy"
       decoding="async"

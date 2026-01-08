@@ -136,7 +136,7 @@ export default function ProjectsSection() {
               animate="animate"
             >
               <p className="text-lg text-white/60">
-                Belum ada project untuk kategori ini
+                No projects available for this category yet
               </p>
             </m.div>
           ) : (
@@ -151,16 +151,21 @@ export default function ProjectsSection() {
                 const demoUrl = p.links.find((l) => l.type === 'demo')?.url
                 const manualImage = p.images[0]?.src
                 
-                // Cek apakah gambar manual benar-benar ada (bukan string kosong atau undefined)
+                // Cek apakah gambar manual benar-benar ada dan valid
+                // resolveImage bisa return string kosong jika file tidak ditemukan
                 const hasManualImage = manualImage && 
                   manualImage.trim() !== '' && 
                   !manualImage.includes('undefined') &&
-                  !manualImage.startsWith('data:') // bukan data URL yang invalid
+                  !manualImage.startsWith('data:') &&
+                  manualImage !== '/favicon.svg' // bukan fallback default
                 
                 // Fallback ke screenshot jika gambar manual tidak ada dan ada demo URL
-                const imageSrc = hasManualImage 
-                  ? manualImage 
-                  : (demoUrl && demoUrl.trim() !== '' ? getScreenshotUrl(demoUrl) : '')
+                let imageSrc = ''
+                if (hasManualImage) {
+                  imageSrc = manualImage
+                } else if (demoUrl && demoUrl.trim() !== '') {
+                  imageSrc = getScreenshotUrl(demoUrl)
+                }
                 
                 return (
                   <m.div key={p.id} variants={fadeInUp}>

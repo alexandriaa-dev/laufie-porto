@@ -47,10 +47,10 @@ export function getScreenshotUrl(demoUrl?: string): string {
   const url = normalizeUrl(demoUrl)
   
   // Opsi 1: screenshot.rocks (gratis, no API key, lebih reliable)
-  // return `https://screenshot.rocks/api?url=${encodeURIComponent(url)}&width=1200&height=675`
+  return `https://screenshot.rocks/api?url=${encodeURIComponent(url)}&width=1200&height=675`
   
-  // Opsi 2: microlink.io (gratis tier)
-  return `https://api.microlink.io/screenshot?url=${encodeURIComponent(url)}&width=1200&height=675`
+  // Opsi 2: microlink.io (gratis tier, kadang 404)
+  // return `https://api.microlink.io/screenshot?url=${encodeURIComponent(url)}&width=1200&height=675`
   
   // Opsi 3: screenshotapi.net (gratis tier dengan limit)
   // return `https://api.screenshotapi.net/screenshot?url=${encodeURIComponent(url)}&width=1200&height=675`
