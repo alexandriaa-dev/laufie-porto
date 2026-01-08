@@ -1,6 +1,6 @@
 import Section from '@/components/common/Section'
 import SectionHeading from '@/components/common/SectionHeading'
-import { projects, getScreenshotUrl } from '@/data/projects'
+import { projects, getScreenshotUrl, DEFAULT_PROJECT_IMAGE } from '@/data/projects'
 import ProjectCard from '@/components/cards/ProjectCard'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { m, AnimatePresence } from 'framer-motion'
@@ -152,20 +152,25 @@ export default function ProjectsSection() {
                 const manualImage = p.images[0]?.src
                 
                 // Cek apakah gambar manual benar-benar ada dan valid
-                // resolveImage bisa return string kosong jika file tidak ditemukan
+                // resolveImage return string kosong jika file tidak ditemukan
                 const hasManualImage = manualImage && 
                   manualImage.trim() !== '' && 
                   !manualImage.includes('undefined') &&
                   !manualImage.startsWith('data:') &&
-                  manualImage !== '/favicon.svg' // bukan fallback default
+                  manualImage !== '/favicon.svg'
                 
-                // Fallback ke screenshot jika gambar manual tidak ada dan ada demo URL
+                // Priority: manual image > screenshot > default project image > favicon
                 let imageSrc = ''
                 if (hasManualImage) {
                   imageSrc = manualImage
                 } else if (demoUrl && demoUrl.trim() !== '') {
+                  // Gunakan screenshot API
                   imageSrc = getScreenshotUrl(demoUrl)
+                } else if (DEFAULT_PROJECT_IMAGE) {
+                  // Gunakan default project image jika ada
+                  imageSrc = DEFAULT_PROJECT_IMAGE
                 }
+                // Jika imageSrc masih kosong, ImageWithFallback akan handle fallback ke /favicon.svg
                 
                 return (
                   <m.div key={p.id} variants={fadeInUp}>

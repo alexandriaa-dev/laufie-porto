@@ -16,6 +16,9 @@ for (const [path, url] of Object.entries(images)) {
   imageByKey[base] = url
 }
 
+// Get default image (project-hero.png) jika ada
+export const DEFAULT_PROJECT_IMAGE = imageByKey['project-hero.png'] || imageByKey['project-hero'] || ''
+
 /**
  * Normalize URL - tambahkan https:// jika tidak ada protocol
  * Export untuk digunakan di komponen
@@ -60,10 +63,16 @@ export function getScreenshotUrl(demoUrl?: string): string {
 }
 
 function resolveImage(input?: string, id?: string): string {
+  // Cek apakah ada gambar di imageByKey
+  const availableImages = Object.keys(imageByKey)
+  const defaultImage = availableImages.length > 0 ? imageByKey[availableImages[0]] : ''
+  
   if (input) {
     const file = input.split('/').pop()!.toLowerCase()
     const base = file.replace(/\.(png|jpe?g|webp|gif|svg)$/i, '')
-    return imageByKey[file] ?? imageByKey[base] ?? input
+    const found = imageByKey[file] ?? imageByKey[base]
+    // Jika tidak ditemukan, return string kosong (bukan input asli)
+    return found || ''
   }
   if (id) {
     const base = id.toLowerCase()
