@@ -106,8 +106,8 @@ export default function AboutSection({ ready = true }: AboutSectionProps) {
                 frameworks.
               </p>
               <p>
-                Beyond code, I founded an academic formatting service which sharpened my problem-solving, adaptability,
-                and communication.
+                Beyond code, I founded xjokitugas, a multi-service academic and creative platform that strengthened
+                my problem-solving, adaptability, and communication skills.
               </p>
             </m.div>
 
