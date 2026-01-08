@@ -150,10 +150,10 @@ export default function ProjectsSection() {
               {filtered.map((p) => {
                 const demoUrl = p.links.find((l) => l.type === 'demo')?.url
                 const manualImage = p.images[0]?.src
-                // Fallback ke screenshot jika gambar manual kosong dan ada demo URL
-                const imageSrc = manualImage && manualImage.trim() !== '' 
+                // Fallback ke screenshot jika gambar manual kosong/tidak ada dan ada demo URL
+                const imageSrc = (manualImage && manualImage.trim() !== '' && !manualImage.includes('undefined')) 
                   ? manualImage 
-                  : (demoUrl ? getScreenshotUrl(demoUrl) : '')
+                  : (demoUrl && demoUrl.trim() !== '' ? getScreenshotUrl(demoUrl) : '')
                 
                 return (
                   <m.div key={p.id} variants={fadeInUp}>

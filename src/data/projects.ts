@@ -17,6 +17,21 @@ for (const [path, url] of Object.entries(images)) {
 }
 
 /**
+ * Normalize URL - tambahkan https:// jika tidak ada protocol
+ * Export untuk digunakan di komponen
+ */
+export function normalizeUrl(url?: string): string {
+  if (!url || url.trim() === '') return ''
+  
+  const trimmed = url.trim()
+  if (trimmed.startsWith('http://') || trimmed.startsWith('https://')) {
+    return trimmed
+  }
+  
+  return `https://${trimmed}`
+}
+
+/**
  * Generate screenshot URL dari website (fallback jika gambar manual tidak ada)
  * Menggunakan service gratis: screenshot.rocks atau microlink.io
  * Export untuk digunakan di komponen
@@ -24,11 +39,7 @@ for (const [path, url] of Object.entries(images)) {
 export function getScreenshotUrl(demoUrl?: string): string {
   if (!demoUrl || demoUrl.trim() === '') return ''
   
-  // Normalize URL (tambahkan https:// jika tidak ada)
-  let url = demoUrl.trim()
-  if (!url.startsWith('http://') && !url.startsWith('https://')) {
-    url = `https://${url}`
-  }
+  const url = normalizeUrl(demoUrl)
   
   // Opsi 1: screenshot.rocks (gratis, no API key)
   // return `https://screenshot.rocks/api?url=${encodeURIComponent(url)}&width=1200&height=675`

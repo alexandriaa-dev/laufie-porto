@@ -1,6 +1,7 @@
 import Badge from '@/components/common/Badge'
 import ExternalLink from '@/components/common/ExternalLink'
 import ImageWithFallback from '@/components/common/ImageWithFallback'
+import { normalizeUrl } from '@/data/projects'
 import { cn } from '@/lib/utils'
 import {
   ExternalLink as Ext,
@@ -166,7 +167,7 @@ export default function ProjectCard({
 
               return available ? (
                 <a
-                  href={demo}
+                  href={normalizeUrl(demo)}
                   target="_blank"
                   rel="noreferrer"
                   aria-label={`${title} – Live Demo`}
@@ -207,7 +208,7 @@ export default function ProjectCard({
 
               return available ? (
                 <a
-                  href={repo}
+                  href={normalizeUrl(repo)}
                   target="_blank"
                   rel="noreferrer"
                   aria-label={`${title} – Source Code`}
@@ -245,10 +246,10 @@ export default function ProjectCard({
 
         {/* CTA bawah card (selalu tampil; kalau URL kosong → toast); ikon ikut rotate */}
         <div className="mt-4 flex flex-wrap gap-3">
-          <FancyLink href={demo} onUnavailable={onUnavailable}>
+          <FancyLink href={demo ? normalizeUrl(demo) : undefined} onUnavailable={onUnavailable}>
             <Ext size={18} /> View Project
           </FancyLink>
-          <FancyLink href={repo} onUnavailable={onUnavailable}>
+          <FancyLink href={repo ? normalizeUrl(repo) : undefined} onUnavailable={onUnavailable}>
             <Github size={18} /> Source Code
           </FancyLink>
         </div>
