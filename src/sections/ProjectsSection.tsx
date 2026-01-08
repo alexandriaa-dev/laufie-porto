@@ -150,8 +150,15 @@ export default function ProjectsSection() {
               {filtered.map((p) => {
                 const demoUrl = p.links.find((l) => l.type === 'demo')?.url
                 const manualImage = p.images[0]?.src
-                // Fallback ke screenshot jika gambar manual kosong/tidak ada dan ada demo URL
-                const imageSrc = (manualImage && manualImage.trim() !== '' && !manualImage.includes('undefined')) 
+                
+                // Cek apakah gambar manual benar-benar ada (bukan string kosong atau undefined)
+                const hasManualImage = manualImage && 
+                  manualImage.trim() !== '' && 
+                  !manualImage.includes('undefined') &&
+                  !manualImage.startsWith('data:') // bukan data URL yang invalid
+                
+                // Fallback ke screenshot jika gambar manual tidak ada dan ada demo URL
+                const imageSrc = hasManualImage 
                   ? manualImage 
                   : (demoUrl && demoUrl.trim() !== '' ? getScreenshotUrl(demoUrl) : '')
                 

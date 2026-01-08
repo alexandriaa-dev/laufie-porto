@@ -24,11 +24,16 @@ export function normalizeUrl(url?: string): string {
   if (!url || url.trim() === '') return ''
   
   const trimmed = url.trim()
+  
+  // Jika sudah ada protocol, return as is
   if (trimmed.startsWith('http://') || trimmed.startsWith('https://')) {
     return trimmed
   }
   
-  return `https://${trimmed}`
+  // Jika tidak ada protocol, tambahkan https://
+  // Pastikan tidak ada double slash
+  const cleanUrl = trimmed.startsWith('//') ? trimmed.slice(2) : trimmed
+  return `https://${cleanUrl}`
 }
 
 /**
@@ -41,13 +46,16 @@ export function getScreenshotUrl(demoUrl?: string): string {
   
   const url = normalizeUrl(demoUrl)
   
-  // Opsi 1: screenshot.rocks (gratis, no API key)
+  // Opsi 1: screenshot.rocks (gratis, no API key, lebih reliable)
   // return `https://screenshot.rocks/api?url=${encodeURIComponent(url)}&width=1200&height=675`
   
-  // Opsi 2: microlink.io (gratis tier, lebih reliable)
+  // Opsi 2: microlink.io (gratis tier)
   return `https://api.microlink.io/screenshot?url=${encodeURIComponent(url)}&width=1200&height=675`
   
-  // Opsi 3: thum.io (gratis tapi terbatas)
+  // Opsi 3: screenshotapi.net (gratis tier dengan limit)
+  // return `https://api.screenshotapi.net/screenshot?url=${encodeURIComponent(url)}&width=1200&height=675`
+  
+  // Opsi 4: thum.io (gratis tapi terbatas)
   // return `https://image.thum.io/get/width/1200/crop/600/noanimate/${encodeURIComponent(url)}`
 }
 

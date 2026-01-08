@@ -9,19 +9,28 @@ export default function ImageWithFallback({
   ...rest
 }: React.ImgHTMLAttributes<HTMLImageElement> & { fallback?: string }) {
   const [error, setError] = useState(false)
+  const [currentSrc, setCurrentSrc] = useState(src || fallback)
   
-  // Reset error state ketika src berubah
+  // Reset error state dan update src ketika src berubah
   useEffect(() => {
     setError(false)
-  }, [src])
+    setCurrentSrc(src || fallback)
+  }, [src, fallback])
+  
+  const handleError = () => {
+    if (!error && currentSrc !== fallback) {
+      setError(true)
+      setCurrentSrc(fallback)
+    }
+  }
   
   return (
     <img
-      src={error ? fallback : (src || fallback)}
+      src={currentSrc}
       alt={alt}
       loading="lazy"
       decoding="async"
-      onError={() => setError(true)}
+      onError={handleError}
       className={cn('object-cover', className)}
       {...rest}
     />
