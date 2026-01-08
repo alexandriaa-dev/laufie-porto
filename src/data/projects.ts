@@ -19,10 +19,6 @@ for (const [path, url] of Object.entries(images)) {
 // Get default image (project-hero.png) jika ada
 export const DEFAULT_PROJECT_IMAGE = imageByKey['project-hero.png'] || imageByKey['project-hero'] || ''
 
-/**
- * Normalize URL - tambahkan https:// jika tidak ada protocol
- * Export untuk digunakan di komponen
- */
 export function normalizeUrl(url?: string): string {
   if (!url || url.trim() === '') return ''
   
@@ -122,7 +118,7 @@ export const projects: Project[] = [
       { type: 'demo', url: 'nb-hate-speech-detector.vercel.app' },
       { type: 'repo', url: '' },
     ],
-    images: [{ src: resolveImage('project-3.jpg', 'classifier-model'), alt: 'Hate Speech Detector' }],
+    images: [{ src: resolveImage('project-3.png', 'classifier-model'), alt: 'Hate Speech Detector' }],
   },
   {
     id: 'portfolio',
@@ -136,6 +132,6 @@ export const projects: Project[] = [
       { type: 'demo', url: 'laufie.vercel.app' },
       { type: 'repo', url: '' },
     ],
-    images: [{ src: resolveImage('project-4.jpg', 'portfolio'), alt: 'Portfolio Website' }],
+    images: [{ src: resolveImage('project-4.png', 'portfolio'), alt: 'Portfolio Website' }],
   },
 ]

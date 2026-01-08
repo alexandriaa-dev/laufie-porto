@@ -14,10 +14,6 @@ const TABS: { key: TabKey; label: string }[] = [
   { key: 'mobile', label: 'Mobile' },
 ]
 
-// Cocokkan project ke tab aktif:
-// 1) pakai p.categories jika ada
-// 2) fallback p.category jika ada
-// 3) heuristik lama (mobile/react native => mobile, else web)
 function matchesTab(p: (typeof projects)[number], tab: TabKey): boolean {
   if (tab === 'all') return true
 
