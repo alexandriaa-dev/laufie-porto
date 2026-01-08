@@ -1,6 +1,6 @@
 import Section from '@/components/common/Section'
 import SectionHeading from '@/components/common/SectionHeading'
-import { projects } from '@/data/projects'
+import { projects, getScreenshotUrl } from '@/data/projects'
 import ProjectCard from '@/components/cards/ProjectCard'
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { m, AnimatePresence } from 'framer-motion'
@@ -128,28 +128,50 @@ export default function ProjectsSection() {
           exit={{ opacity: 0, y: -8 }}
           transition={{ duration: 0.25, ease: 'easeOut' }}
         >
-          <m.div 
-            className="grid gap-6 md:grid-cols-2"
-            variants={staggerContainer(0.1)}
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true, amount: 0.3 }}
-          >
-            {filtered.map((p) => (
-              <m.div key={p.id} variants={fadeInUp}>
-                <ProjectCard
-                  title={p.title}
-                description={p.description}
-                image={p.images[0]?.src}
-                techs={p.techs}
-                status={p.status}
-                demo={p.links.find((l) => l.type === 'demo')?.url}
-                repo={p.links.find((l) => l.type === 'repo')?.url}
-                onUnavailable={showUnavailable}
-                />
-              </m.div>
-            ))}
-          </m.div>
+          {filtered.length === 0 ? (
+            <m.div
+              className="flex flex-col items-center justify-center py-16 text-center"
+              variants={fadeInUp}
+              initial="initial"
+              animate="animate"
+            >
+              <p className="text-lg text-white/60">
+                Belum ada project untuk kategori ini
+              </p>
+            </m.div>
+          ) : (
+            <m.div 
+              className="grid gap-6 md:grid-cols-2"
+              variants={staggerContainer(0.1)}
+              initial="initial"
+              whileInView="animate"
+              viewport={{ once: true, amount: 0.3 }}
+            >
+              {filtered.map((p) => {
+                const demoUrl = p.links.find((l) => l.type === 'demo')?.url
+                const manualImage = p.images[0]?.src
+                // Fallback ke screenshot jika gambar manual kosong dan ada demo URL
+                const imageSrc = manualImage && manualImage.trim() !== '' 
+                  ? manualImage 
+                  : (demoUrl ? getScreenshotUrl(demoUrl) : '')
+                
+                return (
+                  <m.div key={p.id} variants={fadeInUp}>
+                    <ProjectCard
+                      title={p.title}
+                      description={p.description}
+                      image={imageSrc}
+                      techs={p.techs}
+                      status={p.status}
+                      demo={demoUrl}
+                      repo={p.links.find((l) => l.type === 'repo')?.url}
+                      onUnavailable={showUnavailable}
+                    />
+                  </m.div>
+                )
+              })}
+            </m.div>
+          )}
         </m.div>
       </AnimatePresence>
     </Section>

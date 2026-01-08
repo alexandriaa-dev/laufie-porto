@@ -17,12 +17,29 @@ for (const [path, url] of Object.entries(images)) {
 }
 
 /**
- * Resolve menjadi URL build jika ada.
- * - Jika file ditemukan di bundling: gunakan URL-nya.
- * - Jika TIDAK ditemukan: kembalikan string input apa adanya (agar 404 → fallback ditangani ImageWithFallback).
- * - Jika tidak ada input dan ada id yang match basename: pakai itu.
- * - Jika tetap tidak ketemu: kembalikan '' (biar komponen fallback jalan).
+ * Generate screenshot URL dari website (fallback jika gambar manual tidak ada)
+ * Menggunakan service gratis: screenshot.rocks atau microlink.io
+ * Export untuk digunakan di komponen
  */
+export function getScreenshotUrl(demoUrl?: string): string {
+  if (!demoUrl || demoUrl.trim() === '') return ''
+  
+  // Normalize URL (tambahkan https:// jika tidak ada)
+  let url = demoUrl.trim()
+  if (!url.startsWith('http://') && !url.startsWith('https://')) {
+    url = `https://${url}`
+  }
+  
+  // Opsi 1: screenshot.rocks (gratis, no API key)
+  // return `https://screenshot.rocks/api?url=${encodeURIComponent(url)}&width=1200&height=675`
+  
+  // Opsi 2: microlink.io (gratis tier, lebih reliable)
+  return `https://api.microlink.io/screenshot?url=${encodeURIComponent(url)}&width=1200&height=675`
+  
+  // Opsi 3: thum.io (gratis tapi terbatas)
+  // return `https://image.thum.io/get/width/1200/crop/600/noanimate/${encodeURIComponent(url)}`
+}
+
 function resolveImage(input?: string, id?: string): string {
   if (input) {
     const file = input.split('/').pop()!.toLowerCase()
@@ -44,53 +61,53 @@ export const projects: Project[] = [
       'An AI-powered face recognition program that utilizes pre-trained models to generate and compare face embeddings from input images and CCTV footage, assisting in identifying and locating missing persons in public areas.',
     status: 'Completed',
     techs: ['Python', 'InsightFace', 'MiniFASNet', 'FFmpeg'],
-    categories: ['web'], // NEW
+    categories: ['web'],
     links: [
       { type: 'demo', url: '', label: 'View Project' },
       { type: 'repo', url: '', label: 'Source Code' },
     ],
-    images: [{ src: resolveImage('project-1.png', 'ecommerce-dashboard'), alt: 'Project 1' }],
+    images: [{ src: resolveImage('project-1.png', 'face-recognition'), alt: 'AURA Project' }],
   },
   {
     id: 'attendence-app',
     title: 'UIN Attendence App',
     description:
-      'A lightweight web application for managing attendance of teaching assistants, featuring meeting material uploads, documentation tracking, and responsive design for ease of use.',
+      'A web application for managing attendance of TAs, featuring meeting material uploads, documentation tracking, and responsive design for ease of use.',
     status: 'In Progress',
     techs: ['React', 'Tailwind CSS', 'JavaScript', 'Next.js'],
-    categories: ['web', 'mobile'], // NEW (ubah ke 'mobile' bila nanti memang mobile)
+    categories: ['web'],
     links: [
       { type: 'demo', url: '' },
       { type: 'repo', url: '' },
     ],
-    images: [{ src: resolveImage('project-2.jpg', 'attendence-app'), alt: 'Project 2' }],
+    images: [{ src: resolveImage('project-2.jpg', 'attendence-app'), alt: 'UIN Attendance App' }],
   },
   {
     id: 'classifier-model',
-    title: 'Naive Bayes Classifier from Scratch',
+    title: 'Hate Speech Detector',
     description:
-      'A custom Multinomial Naive Bayes classifier built from scratch in Python with an interactive GUI for classification tasks.',
+      'A web application for hate speech detection using a multinomial naive bayes classifier implemented from scratch in python.',
     status: 'Completed',
-    techs: ['Python', 'Numpy', 'Pandas', 'Seaborn', 'Tkinter'],
-    categories: ['web'], // NEW
+    techs: ['Python', 'React', 'Tailwind CSS'],
+    categories: ['web'],
     links: [
-      { type: 'demo', url: '' },
+      { type: 'demo', url: 'nb-hate-speech-detector.vercel.app' },
       { type: 'repo', url: '' },
     ],
-    images: [{ src: resolveImage('project-3.jpg', 'portfolio'), alt: 'Project 3' }],
+    images: [{ src: resolveImage('project-3.jpg', 'classifier-model'), alt: 'Hate Speech Detector' }],
   },
   {
     id: 'portfolio',
     title: 'Portfolio Website',
     description:
-      'A personal portfolio website showcasing creative work with smooth animations, dark mode support, and responsive design.',
+      'A personal portfolio website showcasing creative work with smooth animations and responsive design.',
     status: 'Coming Soon',
     techs: ['React', 'Motion', 'Tailwind CSS', 'Vite'],
-    categories: ['web', 'mobile'], // NEW
+    categories: ['web'],
     links: [
-      { type: 'demo', url: '' },
+      { type: 'demo', url: 'laufie.vercel.app' },
       { type: 'repo', url: '' },
     ],
-    images: [{ src: resolveImage('project-4.jpg', 'portfolio'), alt: 'Project 3' }],
+    images: [{ src: resolveImage('project-4.jpg', 'portfolio'), alt: 'Portfolio Website' }],
   },
 ]
