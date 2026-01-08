@@ -1,10 +1,10 @@
 import type { Project } from '@/types/project'
 
-// Ambil semua gambar sebagai URL bundling Vite (update sesuai deprecation)
-const images = import.meta.glob('/src/assets/images/projects/*', {
+// Ambil semua gambar project sebagai URL bundling Vite.
+// Penting: gunakan path relatif ke file ini (bukan diawali "/").
+const images = import.meta.glob('../assets/images/projects/*', {
   eager: true,
   import: 'default',
-  query: '?url',
 }) as Record<string, string>
 
 // Map: filename & basename → URL
