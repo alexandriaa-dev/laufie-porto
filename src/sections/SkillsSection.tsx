@@ -94,7 +94,7 @@ export default function SkillsSection() {
             <m.div
               key={group.title}
               variants={fadeInUp}
-              className="group relative rounded-2xl overflow-hidden"
+              className="group relative rounded-2xl"
               whileHover={{ scale: 1.015 }}
               transition={{ type: 'spring', stiffness: 250, damping: 20 }}
             >
