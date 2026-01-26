@@ -42,31 +42,51 @@ main {
   position: relative;
   width: 100%;
   min-height: 100vh;
-  z-index: 50;
+  z-index: 100 !important;
   overflow: visible;
   pointer-events: auto !important;
+  isolation: isolate;
 }
 
 /* Pastikan konten ready bisa di-scroll */
 main[data-ready="true"] {
   position: relative;
-  z-index: 50;
+  z-index: 100 !important;
   pointer-events: auto !important;
+  isolation: isolate;
 }
 
 /* Pastikan semua elemen fixed background tidak menghalangi scroll */
 .fixed.pointer-events-none,
 [class*="pointer-events-none"].fixed,
 div[class*="fixed"][class*="pointer-events-none"],
-div.fixed[style*="pointer-events-none"] {
+div.fixed[style*="pointer-events-none"],
+div[class*="fixed"][class*="inset-0"]:not(main):not([data-ready]),
+div[class*="fixed"]:not([class*="z-[4"]):not([class*="z-[5"]):not([class*="z-[6"]):not([class*="z-[7"]):not([class*="z-[8"]):not([class*="z-[9"]):not([class*="z-[10"]) {
   pointer-events: none !important;
   touch-action: none !important;
 }
 
 /* Force semua elemen dengan z-index rendah tidak menghalangi scroll */
 div[class*="-z-"],
-div[style*="z-index"][style*="-"] {
+div[style*="z-index"][style*="-"],
+div[class*="z-["][class*="45"],
+div[class*="z-["][class*="46"] {
   pointer-events: none !important;
+}
+
+/* Pastikan CursorFollower tidak menghalangi scroll */
+div[class*="fixed"][class*="z-[45"],
+div[class*="fixed"][class*="z-[46"] {
+  pointer-events: none !important;
+  touch-action: none !important;
+}
+
+/* Pastikan main element selalu bisa di-scroll */
+body > main,
+#root > main {
+  pointer-events: auto !important;
+  z-index: 100 !important;
 }
 
 body {

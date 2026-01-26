@@ -72,6 +72,8 @@ export default function CursorFollower() {
           y: oy,
           scale: scaleRing,
           background: 'transparent',
+          pointerEvents: 'none',
+          touchAction: 'none',
         }}
       />
       {/* Main cursor: dot abu-abu, mengikuti cepat */}
@@ -83,6 +85,8 @@ export default function CursorFollower() {
           x: ix,
           y: iy,
           scale: scaleDot,
+          pointerEvents: 'none',
+          touchAction: 'none',
         }}
       />
     </>

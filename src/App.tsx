@@ -44,8 +44,20 @@ export default function App() {
       // Pastikan main element bisa menerima scroll
       const mainEl = document.querySelector('main[data-ready="true"]')
       if (mainEl) {
-        (mainEl as HTMLElement).style.pointerEvents = 'auto'
-        (mainEl as HTMLElement).style.touchAction = 'pan-y pan-x pinch-zoom'
+        const main = mainEl as HTMLElement
+        main.style.pointerEvents = 'auto'
+        main.style.touchAction = 'pan-y pan-x pinch-zoom'
+        main.style.zIndex = '100'
+        
+        // Force semua elemen fixed di bawah main tidak menghalangi
+        const fixedElements = document.querySelectorAll('.fixed, [class*="fixed"]')
+        fixedElements.forEach((el) => {
+          const htmlEl = el as HTMLElement
+          const zIndex = parseInt(getComputedStyle(htmlEl).zIndex || '0')
+          if (zIndex < 100 && !htmlEl.classList.contains('pointer-events-none')) {
+            htmlEl.style.pointerEvents = 'none'
+          }
+        })
       }
     }
     
@@ -100,12 +112,13 @@ export default function App() {
           {/* Konten: fade-in setelah preloader selesai */}
           <main
             data-ready={ready ? 'true' : 'false'}
-            className={`relative z-[50] w-full transition-opacity duration-300 ${ready ? 'opacity-100' : 'opacity-0'}`}
+            className={`relative z-[100] w-full transition-opacity duration-300 ${ready ? 'opacity-100' : 'opacity-0'}`}
             style={{ 
               pointerEvents: ready ? 'auto' : 'none',
               minHeight: '100vh',
               height: 'auto',
-              position: 'relative'
+              position: 'relative',
+              isolation: 'isolate'
             }}
             aria-hidden={!ready ? true : undefined}
           >
