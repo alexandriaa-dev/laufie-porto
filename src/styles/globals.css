@@ -15,7 +15,7 @@
 
 /* Behavior scroll global */
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto; /* Ubah ke auto untuk kompatibilitas touchpad yang lebih baik */
   /* Hapus gutter kanan agar tidak ada rongga di sisi scrollbar */
   /* scrollbar-gutter: stable;  <-- dihapus */
 }
@@ -25,7 +25,8 @@ html, body {
   overflow-x: hidden;           /* kunci horizontal */
   overflow-y: auto;             /* izinkan scroll vertikal */
   overscroll-behavior-y: none;  /* cegah overscroll/bounce vertikal saja */
-  touch-action: auto;           /* izinkan semua touch behavior termasuk touchpad scroll */
+  touch-action: pan-y pan-x pinch-zoom; /* izinkan scroll touchpad dan gesture */
+  -webkit-overflow-scrolling: touch; /* smooth scroll untuk iOS */
 }
 #root { 
   overflow-x: clip;              /* jaga agar elemen fixed/transform tidak memicu scroll X */
@@ -43,13 +44,30 @@ main {
   min-height: 100vh;
   z-index: 1;
   overflow: visible;
+  pointer-events: auto !important;
+  touch-action: pan-y pan-x pinch-zoom;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Pastikan wrapper konten tidak menghalangi scroll */
 [data-ready="true"] {
   position: relative;
-  z-index: 1;
-  pointer-events: auto;
+  z-index: 50;
+  pointer-events: auto !important;
+  touch-action: pan-y pan-x pinch-zoom;
+  -webkit-overflow-scrolling: touch;
+}
+
+[data-ready="true"] main {
+  pointer-events: auto !important;
+  touch-action: pan-y pan-x pinch-zoom;
+}
+
+/* Pastikan semua elemen fixed background tidak menghalangi scroll */
+.fixed.pointer-events-none,
+[class*="pointer-events-none"].fixed {
+  pointer-events: none !important;
+  touch-action: none !important;
 }
 
 body {

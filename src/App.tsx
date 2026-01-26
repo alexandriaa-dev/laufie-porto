@@ -86,17 +86,22 @@ export default function App() {
           {/* Konten: fade-in setelah preloader selesai */}
           <div
             data-ready={ready ? 'true' : 'false'}
-            className={`relative z-10 w-full transition-opacity duration-300 ${ready ? 'opacity-100' : 'opacity-0'}`}
+            className={`relative z-[50] w-full transition-opacity duration-300 ${ready ? 'opacity-100' : 'opacity-0'}`}
             style={{ 
               pointerEvents: ready ? 'auto' : 'none',
               minHeight: '100vh',
               height: 'auto',
-              position: 'relative',
-              touchAction: ready ? 'auto' : 'none'
+              position: 'relative'
             }}
             aria-hidden={!ready ? true : undefined}
           >
-            <main className="relative w-full">
+            <main 
+              className="relative w-full z-[1]" 
+              style={{ 
+                pointerEvents: 'auto',
+                position: 'relative'
+              }}
+            >
               <HomeSection ready={ready} />
               <AboutSection ready={ready} />
               <SkillsSection />
