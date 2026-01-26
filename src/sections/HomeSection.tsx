@@ -128,6 +128,7 @@ export default function HomeSection({ ready = true }: HomeSectionProps) {
           <m.p
             variants={fadeInUp}
             className="mx-auto mt-4 max-w-[58ch] text-pretty text-white/70 sm:mt-6 lg:mx-0"
+            style={{ fontSize: 'clamp(10px, 3vw, 20px)' }}
           >
             I blend logic and creativity to craft smart, data-driven, and user-friendly solutions—whether
             through clean code, insightful analysis, or intuitive design.
