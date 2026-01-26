@@ -2,6 +2,15 @@ import type { Config } from 'tailwindcss'
 
 export default {
   content: ['./index.html', './src/**/*.{ts,tsx}'],
+  safelist: [
+    'z-[100]',
+    'z-[50]',
+    'z-[45]',
+    'z-[46]',
+    'pointer-events-none',
+    'pointer-events-auto',
+    'data-ready',
+  ],
   theme: {
     extend: {
       // Tambahkan breakpoint di atas lg tapi di bawah xl

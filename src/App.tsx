@@ -33,6 +33,7 @@ export default function App() {
     
     // Pastikan scroll di-unlock dengan cara yang lebih agresif
     const unlockScroll = () => {
+      // Unlock body dan html
       document.body.style.overflow = ''
       document.body.style.overflowY = ''
       document.body.style.height = ''
@@ -41,21 +42,28 @@ export default function App() {
       document.documentElement.style.overflowY = ''
       document.documentElement.style.height = ''
       
-      // Pastikan main element bisa menerima scroll
+      // Pastikan main element bisa menerima scroll dengan inline style (untuk production)
       const mainEl = document.querySelector('main[data-ready="true"]')
       if (mainEl) {
         const main = mainEl as HTMLElement
-        main.style.pointerEvents = 'auto'
-        main.style.touchAction = 'pan-y pan-x pinch-zoom'
-        main.style.zIndex = '100'
+        // Force dengan inline style untuk memastikan bekerja di production
+        main.style.setProperty('pointer-events', 'auto', 'important')
+        main.style.setProperty('z-index', '100', 'important')
+        main.style.setProperty('position', 'relative', 'important')
+        main.style.setProperty('touch-action', 'pan-y pan-x pinch-zoom', 'important')
         
         // Force semua elemen fixed di bawah main tidak menghalangi
         const fixedElements = document.querySelectorAll('.fixed, [class*="fixed"]')
         fixedElements.forEach((el) => {
           const htmlEl = el as HTMLElement
           const zIndex = parseInt(getComputedStyle(htmlEl).zIndex || '0')
-          if (zIndex < 100 && !htmlEl.classList.contains('pointer-events-none')) {
-            htmlEl.style.pointerEvents = 'none'
+          const hasPointerEventsNone = htmlEl.classList.contains('pointer-events-none') || 
+                                       getComputedStyle(htmlEl).pointerEvents === 'none'
+          
+          // Jika z-index < 100 dan tidak memiliki pointer-events-none, force none
+          if (zIndex < 100 && !hasPointerEventsNone) {
+            htmlEl.style.setProperty('pointer-events', 'none', 'important')
+            htmlEl.style.setProperty('touch-action', 'none', 'important')
           }
         })
       }
@@ -118,7 +126,8 @@ export default function App() {
               minHeight: '100vh',
               height: 'auto',
               position: 'relative',
-              isolation: 'isolate'
+              isolation: 'isolate',
+              zIndex: 100
             }}
             aria-hidden={!ready ? true : undefined}
           >

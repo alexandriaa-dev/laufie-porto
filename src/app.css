@@ -13,3 +13,15 @@ html, body, #root {
   overflow-y: auto;
   overflow-x: hidden;
 }
+
+/* Critical CSS untuk scroll di production - pastikan tidak dihapus */
+main[data-ready="true"] {
+  pointer-events: auto !important;
+  z-index: 100 !important;
+  position: relative !important;
+}
+
+.fixed.pointer-events-none {
+  pointer-events: none !important;
+  touch-action: none !important;
+}
