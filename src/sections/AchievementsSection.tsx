@@ -1,9 +1,11 @@
+import { useState, useRef, useEffect, useMemo } from 'react'
 import Section from '@/components/common/Section'
 import SectionHeading from '@/components/common/SectionHeading'
-import { achievements, achievementsStats } from '@/data/achievements'
+import { achievements, achievementsStats, type Achievement } from '@/data/achievements'
 import AchievementCard from '@/components/cards/AchievementCard'
+import AchievementModal from '@/components/modals/AchievementModal'
 import { Trophy, Calendar, Building2, Medal, Award } from 'lucide-react'
-import { m } from 'framer-motion'
+import { m, AnimatePresence } from 'framer-motion'
 import { fadeInUp, staggerContainer } from '@/lib/motion/variants'
 
 function StatIcon({ label, size = 22 }: { label: string; size?: number }) {
@@ -52,22 +54,83 @@ const ALL_PAIRS: [string, string][] = COLORS.flatMap((cA) =>
   COLORS.filter((cB) => cB !== cA).map((cB) => [cA, cB] as [string, string])
 )
 
+type TabKey = 'award' | 'experience'
+const TABS: { key: TabKey; label: string }[] = [
+  { key: 'award', label: 'Honor & Awards' },
+  { key: 'experience', label: 'Experience' },
+]
+
+function matchesTab(a: Achievement, tab: TabKey): boolean {
+  return a.category === tab
+}
+
 export default function AchievementsSection() {
   // Seed stabil berdasar daftar achievements (judul)
   const seed = hashSeed(achievements.map((a) => a.title).join('|'))
   const PAIRS = seededShuffle(ALL_PAIRS, seed)
 
+  // Filter state
+  const [active, setActive] = useState<TabKey>('award')
+  const [pill, setPill] = useState({ left: 0, width: 0 })
+  const listRef = useRef<HTMLDivElement>(null)
+  const btnRefs = useRef<(HTMLButtonElement | null)[]>([])
+
+  // Modal state
+  const [selectedAchievement, setSelectedAchievement] = useState<Achievement | null>(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const scrollPositionRef = useRef<number>(0)
+
+  const filtered = useMemo(() => {
+    return achievements.filter((a) => matchesTab(a, active))
+  }, [active])
+
+  const updatePill = () => {
+    const idx = TABS.findIndex((t) => t.key === active)
+    const btn = btnRefs.current[idx]
+    if (btn) {
+      setPill({ left: btn.offsetLeft, width: btn.offsetWidth })
+    }
+  }
+
+  useEffect(() => {
+    updatePill()
+    const onResize = () => updatePill()
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [active])
+
+  const handleCardClick = (achievement: Achievement) => {
+    // Simpan scroll position sebelum buka modal
+    scrollPositionRef.current = window.scrollY
+    setSelectedAchievement(achievement)
+    setIsModalOpen(true)
+  }
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false)
+    // Delay untuk animasi exit, lalu restore scroll position
+    setTimeout(() => {
+      setSelectedAchievement(null)
+      // Restore scroll position setelah modal benar-benar tertutup
+      window.scrollTo({
+        top: scrollPositionRef.current,
+        behavior: 'instant' // Instant untuk tidak trigger smooth scroll
+      })
+    }, 300)
+  }
+
   return (
     <Section id="achievements">
       <SectionHeading
         title="Achievements &"
-        highlight="Recognition"
-        subtitle="Recognition and awards received throughout my professional journey, highlighting excellence in development, design, and innovation."
+        highlight="Experiences"
+        subtitle="Awards and experiences received throughout my professional journey, highlighting excellence in development, design, and innovation."
       />
 
       {/* Top stats (tanpa kilau pada card) */}
       <m.div 
-        className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4"
+        className="mb-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-4"
         variants={staggerContainer(0.1)}
         initial="initial"
         whileInView="animate"
@@ -124,30 +187,119 @@ export default function AchievementsSection() {
         ))}
       </m.div>
 
-      {/* List achievements */}
+      {/* Tabs with animated pill */}
       <m.div 
-        className="mt-8 grid gap-6 lg:grid-cols-3"
-        variants={staggerContainer(0.1)}
+        className="mx-auto mb-12 w-max rounded-2xl border border-white/10 bg-white/[0.02] p-1 backdrop-blur-sm"
+        variants={fadeInUp}
         initial="initial"
         whileInView="animate"
         viewport={{ once: true, amount: 0.3 }}
       >
-        {achievements.map((a, i) => {
-          const [from, to] = PAIRS[i % PAIRS.length] // tidak akan sama berurutan
-          return (
-            <m.div key={a.id} variants={fadeInUp}>
-              <AchievementCard
-                title={a.title}
-                org={a.org}
-                year={a.year}
-                badge={a.badge}
-                gradientFrom={from}
-                gradientTo={to}
-              />
-            </m.div>
-          )
-        })}
+        <div
+          ref={listRef}
+          role="tablist"
+          aria-label="Achievements filter"
+          className="relative flex gap-1"
+        >
+          {/* moving pill */}
+          <m.span
+            className="pointer-events-none absolute top-0 bottom-0 rounded-2xl"
+            style={{
+              background: 'linear-gradient(90deg, rgba(255,255,255,0.35) 0%, var(--c3) 100%)',
+              opacity: 0.9,
+              backdropFilter: 'blur(6px)',
+              boxShadow: '0 0 0 1px rgba(255,255,255,0.06), 0 8px 20px rgba(0,0,0,0.25)',
+            }}
+            animate={{ left: pill.left + 0, width: Math.max(0, pill.width - 0) }}
+            transition={{ type: 'spring', stiffness: 460, damping: 32, mass: 0.6 }}
+          />
+
+          {TABS.map((t, i) => {
+            const isActive = active === t.key
+            return (
+              <button
+                key={t.key}
+                ref={(el) => { btnRefs.current[i] = el }}
+                role="tab"
+                aria-selected={isActive}
+                onClick={() => setActive(t.key)}
+                className="relative rounded-2xl px-6 py-2 text-lg font-medium text-white/85 transition-colors"
+              >
+                <span className={`relative z-10 ${isActive ? 'font-semibold text-white' : 'hover:text-white'}`}>
+                  {t.label}
+                </span>
+              </button>
+            )
+          })}
+        </div>
       </m.div>
+
+      {/* Grid with fade out/in when switching category */}
+      <AnimatePresence mode="wait">
+        <m.div
+          key={active}
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -8 }}
+          transition={{ duration: 0.25, ease: 'easeOut' }}
+        >
+          {filtered.length === 0 ? (
+            <m.div
+              className="flex flex-col items-center justify-center py-16 text-center"
+              variants={fadeInUp}
+              initial="initial"
+              animate="animate"
+            >
+              <p className="text-lg text-white/60">
+                No achievements available for this category yet
+              </p>
+            </m.div>
+          ) : (
+            <m.div 
+              className="grid gap-6 lg:grid-cols-3"
+              variants={staggerContainer(0.1)}
+              initial="initial"
+              whileInView="animate"
+              viewport={{ once: true, amount: 0.3 }}
+            >
+              {filtered.map((a, i) => {
+                const originalIndex = achievements.findIndex((ach) => ach.id === a.id)
+                const [from, to] = PAIRS[originalIndex % PAIRS.length] // tidak akan sama berurutan
+                return (
+                  <m.div key={a.id} variants={fadeInUp}>
+                    <AchievementCard
+                      title={a.title}
+                      org={a.org}
+                      year={a.year}
+                      badge={a.badge}
+                      gradientFrom={from}
+                      gradientTo={to}
+                      onClick={() => handleCardClick(a)}
+                    />
+                  </m.div>
+                )
+              })}
+            </m.div>
+          )}
+        </m.div>
+      </AnimatePresence>
+
+      {/* Achievement Modal */}
+      <AchievementModal
+        achievement={selectedAchievement}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        gradientFrom={
+          selectedAchievement
+            ? PAIRS[achievements.findIndex((a) => a.id === selectedAchievement.id) % PAIRS.length][0]
+            : 'var(--c2)'
+        }
+        gradientTo={
+          selectedAchievement
+            ? PAIRS[achievements.findIndex((a) => a.id === selectedAchievement.id) % PAIRS.length][1]
+            : 'var(--c3)'
+        }
+      />
     </Section>
   )
 }

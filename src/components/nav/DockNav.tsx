@@ -74,7 +74,8 @@ export default function DockNav({ activeId }: { activeId: string }) {
       initial={{ y: 40, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       exit={{ y: 40, opacity: 0 }}
-      className="fixed inset-x-0 bottom-4 z-40 flex justify-center"
+      className="fixed inset-x-0 bottom-4 z-[50] flex justify-center"
+      style={{ pointerEvents: 'auto' }}
     >
       <div
         ref={containerRef}

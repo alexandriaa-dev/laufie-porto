@@ -59,7 +59,7 @@ type HomeSectionProps = {
 
 export default function HomeSection({ ready = true }: HomeSectionProps) {
   const { toast } = useToast()
-  const cvUrl = `${import.meta.env.BASE_URL}laufie-cv.pdf`
+  const cvUrl = `${import.meta.env.BASE_URL}Lovi-Adiva-Alexandria-CV.pdf`
 
   const handleDownloadCV = async (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault()
@@ -82,7 +82,7 @@ export default function HomeSection({ ready = true }: HomeSectionProps) {
       const url = URL.createObjectURL(blob)
       const a = document.createElement('a')
       a.href = url
-      a.download = 'Laufie-Alexandria-CV.pdf'
+      a.download = 'Lovi-Adiva-Alexandria-CV.pdf'
       document.body.appendChild(a)
       a.click()
       a.remove()
@@ -110,11 +110,11 @@ export default function HomeSection({ ready = true }: HomeSectionProps) {
           <m.h1
             variants={fadeInUp}
             className="font-bold"
-            style={{ fontSize: 'clamp(28px, 7vw, 74px)', lineHeight: 1.06 }}
+            style={{ lineHeight: 1.06 }}
           >
-            <span className="title-gradient inline-block">Laufie</span>
+            <span className="title-gradient inline-block" style={{ fontSize: 'clamp(24px, 6vw, 64px)' }}>Lovi Adiva</span>
             <br />
-            <span className="title-gradient inline-block">Alexandria</span>
+            <span className="title-gradient inline-block" style={{ fontSize: 'clamp(28px, 7vw, 74px)' }}>Alexandria</span>
           </m.h1>
 
           <m.p
@@ -143,7 +143,7 @@ export default function HomeSection({ ready = true }: HomeSectionProps) {
               label="Download CV"
               variant="outline"
               icon={<Download size={16} />}
-              downloadName="Laufie-Alexandria-CV.pdf"
+              downloadName="Lovi-Adiva-Alexandria-CV.pdf"
               onClick={handleDownloadCV}
             />
           </m.div>

@@ -15,7 +15,7 @@
 
 /* Behavior scroll global */
 html {
-  scroll-behavior: auto; /* Ubah ke auto untuk kompatibilitas touchpad yang lebih baik */
+  scroll-behavior: smooth;
   /* Hapus gutter kanan agar tidak ada rongga di sisi scrollbar */
   /* scrollbar-gutter: stable;  <-- dihapus */
 }
@@ -42,18 +42,16 @@ main {
   position: relative;
   width: 100%;
   min-height: 100vh;
-  z-index: 100 !important;
+  z-index: 1;
   overflow: visible;
   pointer-events: auto !important;
-  isolation: isolate;
 }
 
 /* Pastikan konten ready bisa di-scroll */
 main[data-ready="true"] {
   position: relative;
-  z-index: 100 !important;
+  z-index: 1;
   pointer-events: auto !important;
-  isolation: isolate;
 }
 
 /* Pastikan semua elemen fixed background tidak menghalangi scroll - simplified for production */
@@ -62,10 +60,20 @@ main[data-ready="true"] {
   touch-action: none !important;
 }
 
-/* Pastikan main element selalu bisa di-scroll */
-main {
+/* Pastikan navbar dan elemen interaktif lainnya tidak terhalang */
+nav,
+[role="navigation"],
+nav.fixed,
+[class*="nav"].fixed {
   pointer-events: auto !important;
-  z-index: 100 !important;
+}
+
+/* Pastikan link di navbar bisa diklik */
+nav a,
+nav button,
+[role="navigation"] a,
+[role="navigation"] button {
+  pointer-events: auto !important;
 }
 
 main[data-ready="true"] {

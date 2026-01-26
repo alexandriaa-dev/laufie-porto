@@ -1,7 +1,7 @@
 import { m } from 'framer-motion'
 import { Sparkles, Star, Palette } from 'lucide-react'
 import ImageWithFallback from '@/components/common/ImageWithFallback'
-import avatarUrl from '@/assets/images/avatar.jpeg'
+import avatarUrl from '@/assets/images/avatar.jpg'
 
 type TwinkleProps = {
   size?: number

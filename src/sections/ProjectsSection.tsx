@@ -84,14 +84,14 @@ export default function ProjectsSection() {
         >
           {/* moving pill */}
           <m.span
-            className="pointer-events-none absolute top-1 bottom-1 rounded-xl"
+            className="pointer-events-none absolute top-0 bottom-0 rounded-2xl"
             style={{
               background: 'linear-gradient(90deg, rgba(255,255,255,0.35) 0%, var(--c3) 100%)',
               opacity: 0.9,
               backdropFilter: 'blur(6px)',
               boxShadow: '0 0 0 1px rgba(255,255,255,0.06), 0 8px 20px rgba(0,0,0,0.25)',
             }}
-            animate={{ left: pill.left + 2, width: Math.max(0, pill.width - 4) }}
+            animate={{ left: pill.left + 1, width: Math.max(0, pill.width - 2) }}
             transition={{ type: 'spring', stiffness: 460, damping: 32, mass: 0.6 }}
           />
 
@@ -104,7 +104,7 @@ export default function ProjectsSection() {
                 role="tab"
                 aria-selected={isActive}
                 onClick={() => setActive(t.key)}
-                className="relative rounded-xl px-4 py-2 text-sm text-white/85 transition-colors"
+                className="relative rounded-2xl px-6 py-2.5 text-lg font-medium text-white/85 transition-colors"
               >
                 <span className={`relative z-10 ${isActive ? 'font-semibold text-white' : 'hover:text-white'}`}>
                   {t.label}

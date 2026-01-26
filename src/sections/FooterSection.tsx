@@ -8,7 +8,7 @@ import { contact } from '@/data/socials'
 function BrandWithSparkle() {
   return (
     <div className="relative inline-block">
-      <span className="title-gradient inline-block">Laufie Alexandria</span>
+      <span className="title-gradient inline-block">Lovi Adiva Alexandria</span>
 
       {/* Posisi disetel dekat tapi tidak mepet */}
       <div className="pointer-events-none absolute -right-5 -top-3" aria-hidden>
@@ -100,7 +100,7 @@ export function FooterContent() {
       </div>
 
       <div className="mt-10 flex items-center justify-between text-sm text-white/50">
-        <span>© 2025 Laufie Alexandria.</span>
+        <span>© 2025 Lovi Adiva Alexandria.</span>
         <BackToTop />
       </div>
     </div>

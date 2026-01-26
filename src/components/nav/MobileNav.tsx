@@ -100,6 +100,7 @@ export default function MobileNav({ activeId, className }: Props) {
       animate={{ y: 0, opacity: 1 }}
       exit={{ y: 40, opacity: 0 }}
       className={cn('fixed inset-x-0 bottom-0 z-[80] md:hidden', className)}
+      style={{ pointerEvents: 'auto' }}
       aria-label="Mobile navigation"
     >
       {/* Dock tray */}

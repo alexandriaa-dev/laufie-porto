@@ -5,6 +5,7 @@ import { ToastProvider } from '@/providers/ToastProvider'
 import DockNav from '@/components/nav/DockNav'
 import TopProgressBar from '@/components/progress/TopProgressBar'
 import CircleProgress from '@/components/progress/CircleProgress'
+import ConstructionAlert from '@/components/common/ConstructionAlert'
 import ParticleField from '@/components/fx/ParticleField'
 import CursorFollower from '@/components/fx/CursorFollower'
 import HomeSection from '@/sections/HomeSection'
@@ -107,6 +108,7 @@ export default function App() {
             />
           )}
 
+          {ready && <ConstructionAlert />}
           <TopProgressBar />
 
           {/* Background: animasi jalan, tidak mengikuti kursor */}
@@ -120,14 +122,13 @@ export default function App() {
           {/* Konten: fade-in setelah preloader selesai */}
           <main
             data-ready={ready ? 'true' : 'false'}
-            className={`relative z-[100] w-full transition-opacity duration-300 ${ready ? 'opacity-100' : 'opacity-0'}`}
+            className={`relative z-[1] w-full transition-opacity duration-300 ${ready ? 'opacity-100' : 'opacity-0'}`}
             style={{ 
               pointerEvents: ready ? 'auto' : 'none',
               minHeight: '100vh',
               height: 'auto',
               position: 'relative',
-              isolation: 'isolate',
-              zIndex: 100
+              isolation: 'isolate'
             }}
             aria-hidden={!ready ? true : undefined}
           >
