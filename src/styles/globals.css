@@ -27,7 +27,22 @@ html, body {
   overscroll-behavior-y: none;  /* cegah overscroll/bounce vertikal saja */
   touch-action: auto;           /* izinkan semua touch behavior termasuk touchpad scroll */
 }
-#root { overflow-x: clip; }     /* jaga agar elemen fixed/transform tidak memicu scroll X */
+#root { 
+  overflow-x: clip;              /* jaga agar elemen fixed/transform tidak memicu scroll X */
+  overflow-y: visible;           /* izinkan scroll vertikal */
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  height: auto;
+}
+
+/* Pastikan konten utama bisa di-scroll */
+main {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  z-index: 1;
+}
 
 body {
   background:

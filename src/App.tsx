@@ -78,10 +78,15 @@ export default function App() {
           {/* Konten: fade-in setelah preloader selesai */}
           <div
             data-ready={ready ? 'true' : 'false'}
-            className={`transition-opacity duration-300 ${ready ? 'opacity-100' : 'opacity-0'}`}
+            className={`relative z-10 w-full transition-opacity duration-300 ${ready ? 'opacity-100' : 'opacity-0'}`}
+            style={{ 
+              pointerEvents: ready ? 'auto' : 'none',
+              minHeight: '100vh',
+              height: 'auto'
+            }}
             aria-hidden={!ready ? true : undefined}
           >
-            <main>
+            <main className="relative">
               <HomeSection ready={ready} />
               <AboutSection ready={ready} />
               <SkillsSection />
