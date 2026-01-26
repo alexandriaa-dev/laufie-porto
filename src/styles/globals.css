@@ -23,8 +23,9 @@ html, body {
   width: 100%;
   max-width: 100vw;
   overflow-x: hidden;           /* kunci horizontal */
-  overscroll-behavior: none;    /* cegah overscroll/bounce & scroll chaining */
-  touch-action: pan-y;          /* hanya izinkan pan vertikal */
+  overflow-y: auto;             /* izinkan scroll vertikal */
+  overscroll-behavior-y: none;  /* cegah overscroll/bounce vertikal saja */
+  touch-action: auto;           /* izinkan semua touch behavior termasuk touchpad scroll */
 }
 #root { overflow-x: clip; }     /* jaga agar elemen fixed/transform tidak memicu scroll X */
 
