@@ -31,14 +31,28 @@ export default function App() {
   useEffect(() => {
     if (!ready) return
     
-    // Pastikan scroll di-unlock
-    document.body.style.overflow = ''
-    document.body.style.overflowY = ''
-    document.body.style.height = ''
-    document.documentElement.style.overflow = ''
-    document.documentElement.style.overflowY = ''
+    // Pastikan scroll di-unlock dengan cara yang lebih agresif
+    const unlockScroll = () => {
+      document.body.style.overflow = ''
+      document.body.style.overflowY = ''
+      document.body.style.height = ''
+      document.body.style.position = ''
+      document.documentElement.style.overflow = ''
+      document.documentElement.style.overflowY = ''
+      document.documentElement.style.height = ''
+      
+      // Pastikan main element bisa menerima scroll
+      const mainEl = document.querySelector('main[data-ready="true"]')
+      if (mainEl) {
+        (mainEl as HTMLElement).style.pointerEvents = 'auto'
+        (mainEl as HTMLElement).style.touchAction = 'pan-y pan-x pinch-zoom'
+      }
+    }
+    
+    unlockScroll()
     
     const t = setTimeout(() => {
+      unlockScroll() // Pastikan lagi setelah delay
       const el = document.getElementById('home')
       if (el) {
         el.scrollIntoView({ behavior: 'smooth', block: 'start' })
@@ -48,7 +62,7 @@ export default function App() {
       try {
         history.replaceState(null, '', '#home')
       } catch {}
-    }, 60) // beri jeda singkat agar overlay sempat fade-out
+    }, 100) // sedikit lebih lama untuk memastikan unlock
     return () => clearTimeout(t)
   }, [ready])
 
@@ -79,12 +93,12 @@ export default function App() {
           <AmbientBackground pauseAnimation={false} />
 
           {/* Particle kecil (statis) */}
-          <ParticleField />
+          <ParticleField zIndexClass="-z-10" />
 
           <CursorFollower />
 
           {/* Konten: fade-in setelah preloader selesai */}
-          <div
+          <main
             data-ready={ready ? 'true' : 'false'}
             className={`relative z-[50] w-full transition-opacity duration-300 ${ready ? 'opacity-100' : 'opacity-0'}`}
             style={{ 
@@ -95,20 +109,12 @@ export default function App() {
             }}
             aria-hidden={!ready ? true : undefined}
           >
-            <main 
-              className="relative w-full z-[1]" 
-              style={{ 
-                pointerEvents: 'auto',
-                position: 'relative'
-              }}
-            >
-              <HomeSection ready={ready} />
-              <AboutSection ready={ready} />
-              <SkillsSection />
-              <ProjectsSection />
-              <AchievementsSection />
-              <ContactSection />
-            </main>
+            <HomeSection ready={ready} />
+            <AboutSection ready={ready} />
+            <SkillsSection />
+            <ProjectsSection />
+            <AchievementsSection />
+            <ContactSection />
 
             {/* Mobile bottom nav */}
             <MobileTabNav activeId={active} className="md:hidden" />
@@ -119,7 +125,7 @@ export default function App() {
             </div>
 
             <CircleProgress />
-          </div>
+          </main>
         </MotionProvider>
       </ToastProvider>
     </ThemeProvider>

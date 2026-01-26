@@ -22,15 +22,15 @@ html {
 html, body {
   width: 100%;
   max-width: 100vw;
-  overflow-x: hidden;           /* kunci horizontal */
-  overflow-y: auto;             /* izinkan scroll vertikal */
-  overscroll-behavior-y: none;  /* cegah overscroll/bounce vertikal saja */
-  touch-action: pan-y pan-x pinch-zoom; /* izinkan scroll touchpad dan gesture */
-  -webkit-overflow-scrolling: touch; /* smooth scroll untuk iOS */
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: auto;
+  min-height: 100vh;
 }
+
 #root { 
-  overflow-x: clip;              /* jaga agar elemen fixed/transform tidak memicu scroll X */
-  overflow-y: visible;           /* izinkan scroll vertikal */
+  overflow-x: clip;
+  overflow-y: visible;
   position: relative;
   min-height: 100vh;
   width: 100%;
@@ -42,32 +42,31 @@ main {
   position: relative;
   width: 100%;
   min-height: 100vh;
-  z-index: 1;
+  z-index: 50;
   overflow: visible;
   pointer-events: auto !important;
-  touch-action: pan-y pan-x pinch-zoom;
-  -webkit-overflow-scrolling: touch;
 }
 
-/* Pastikan wrapper konten tidak menghalangi scroll */
-[data-ready="true"] {
+/* Pastikan konten ready bisa di-scroll */
+main[data-ready="true"] {
   position: relative;
   z-index: 50;
   pointer-events: auto !important;
-  touch-action: pan-y pan-x pinch-zoom;
-  -webkit-overflow-scrolling: touch;
-}
-
-[data-ready="true"] main {
-  pointer-events: auto !important;
-  touch-action: pan-y pan-x pinch-zoom;
 }
 
 /* Pastikan semua elemen fixed background tidak menghalangi scroll */
 .fixed.pointer-events-none,
-[class*="pointer-events-none"].fixed {
+[class*="pointer-events-none"].fixed,
+div[class*="fixed"][class*="pointer-events-none"],
+div.fixed[style*="pointer-events-none"] {
   pointer-events: none !important;
   touch-action: none !important;
+}
+
+/* Force semua elemen dengan z-index rendah tidak menghalangi scroll */
+div[class*="-z-"],
+div[style*="z-index"][style*="-"] {
+  pointer-events: none !important;
 }
 
 body {
