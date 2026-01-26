@@ -170,6 +170,29 @@ export default function Preloader({
     return () => cancelAnimationFrame(id)
   }, [])
 
+  // Lock scroll saat preloader aktif
+  useEffect(() => {
+    if (phase === 'done') return
+    // Lock scroll
+    const prevOverflow = document.body.style.overflow
+    const prevOverflowY = document.body.style.overflowY
+    const prevHeight = document.body.style.height
+    document.body.style.overflow = 'hidden'
+    document.body.style.overflowY = 'hidden'
+    document.body.style.height = '100vh'
+    document.documentElement.style.overflow = 'hidden'
+    document.documentElement.style.overflowY = 'hidden'
+    
+    return () => {
+      // Unlock scroll saat preloader selesai
+      document.body.style.overflow = prevOverflow
+      document.body.style.overflowY = prevOverflowY
+      document.body.style.height = prevHeight
+      document.documentElement.style.overflow = ''
+      document.documentElement.style.overflowY = ''
+    }
+  }, [phase])
+
   // bailout
   useEffect(() => {
     const to = setTimeout(() => beginExit(), timeoutMs)
@@ -212,7 +235,10 @@ export default function Preloader({
           radial-gradient(900px 600px at 20% 20%, rgba(0,19,190,.12), transparent 60%) no-repeat,
           hsl(220 15% 7%)
         `,
+        touchAction: 'none', // Prevent scroll/touch during preloader
       }}
+      onWheel={(e) => e.preventDefault()} // Prevent wheel scroll
+      onTouchMove={(e) => e.preventDefault()} // Prevent touch scroll
       aria-label="Loading"
       role="status"
       aria-busy="true"

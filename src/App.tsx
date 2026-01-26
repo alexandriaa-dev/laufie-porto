@@ -27,9 +27,17 @@ export default function App() {
 
   const [ready, setReady] = useState(false)
 
-  // Setelah preloader selesai, paksa ke Home section
+  // Setelah preloader selesai, unlock scroll dan paksa ke Home section
   useEffect(() => {
     if (!ready) return
+    
+    // Pastikan scroll di-unlock
+    document.body.style.overflow = ''
+    document.body.style.overflowY = ''
+    document.body.style.height = ''
+    document.documentElement.style.overflow = ''
+    document.documentElement.style.overflowY = ''
+    
     const t = setTimeout(() => {
       const el = document.getElementById('home')
       if (el) {
@@ -82,11 +90,13 @@ export default function App() {
             style={{ 
               pointerEvents: ready ? 'auto' : 'none',
               minHeight: '100vh',
-              height: 'auto'
+              height: 'auto',
+              position: 'relative',
+              touchAction: ready ? 'auto' : 'none'
             }}
             aria-hidden={!ready ? true : undefined}
           >
-            <main className="relative">
+            <main className="relative w-full">
               <HomeSection ready={ready} />
               <AboutSection ready={ready} />
               <SkillsSection />
