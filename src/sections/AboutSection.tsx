@@ -95,7 +95,7 @@ export default function AboutSection({ ready = true }: AboutSectionProps) {
             <m.div 
               variants={fadeInUp}
               className="prose prose-invert mt-4 max-w-none space-y-4"
-              style={{ fontSize: 'clamp(14px, 3vw, 18.5px)' }}
+              style={{ fontSize: 'clamp(16px, 3vw, 18.5px)' }}
             >
               <p>
                 I&apos;m a creative developer and aspiring data scientist with a strong passion for turning ideas

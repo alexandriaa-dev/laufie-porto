@@ -96,7 +96,7 @@ export default function ContactSection() {
             </div>
             <p
               className="mt-2 text-white/70"
-              style={{ fontSize: 'clamp(15px, 1.8vw, 19px)' }}
+              style={{ fontSize: 'clamp(16px, 1.8vw, 19px)' }}
             >
               I&apos;m currently available for freelance projects and consulting work. Let&apos;s discuss how we
               can bring your ideas to life.
