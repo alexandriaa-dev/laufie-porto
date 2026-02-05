@@ -33,7 +33,7 @@ export default function SectionHeading({
         <p
           className="mt-4 text-white/70 max-w-3xl mx-auto"
           style={{
-            fontSize: 'clamp(16px, 2.05vw, 19px)',
+            fontSize: 'clamp(17px, 2.05vw, 19px)',
             lineHeight: 1.6,
           }}
         >

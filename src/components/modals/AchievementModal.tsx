@@ -274,7 +274,7 @@ export default function AchievementModal({
                           {/* Org + Year */}
                           <div
                             className="space-y-2"
-                            style={{ fontSize: 'clamp(15px, 1.7vw, 18.5px)' }}
+                            style={{ fontSize: 'clamp(16px, 1.7vw, 18.5px)' }}
                           >
                             <div className="flex items-center gap-2 text-white/85">
                               <Building2 size={18} style={{ color: 'var(--c2)' }} />
@@ -291,7 +291,7 @@ export default function AchievementModal({
                       {/* Description */}
                       {achievement?.description && (
                         <div className="mt-4 p-4 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm">
-                          <p className="text-white/80 leading-relaxed whitespace-pre-line" style={{ fontSize: 'clamp(15px, 1.8vw, 18px)' }}>{achievement.description}</p>
+                          <p className="text-white/80 leading-relaxed whitespace-pre-line" style={{ fontSize: 'clamp(16px, 1.8vw, 18px)' }}>{achievement.description}</p>
                         </div>
                       )}
                     </div>

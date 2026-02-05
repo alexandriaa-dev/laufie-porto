@@ -96,7 +96,7 @@ export default function ContactSection() {
             </div>
             <p
               className="mt-2 text-white/70"
-              style={{ fontSize: 'clamp(16px, 1.8vw, 19px)' }}
+              style={{ fontSize: 'clamp(17px, 1.8vw, 19px)' }}
             >
               I&apos;m currently available for freelance projects and consulting work. Let&apos;s discuss how we
               can bring your ideas to life.
@@ -289,13 +289,13 @@ function ContactCard({
       <div className="min-w-0">
         <div
           className="text-white/70"
-          style={{ fontSize: 'clamp(14px, 1.6vw, 17.5px)' }}
+          style={{ fontSize: 'clamp(16px, 1.6vw, 17.5px)' }}
         >
           {label}
         </div>
         <div
           className="truncate font-medium text-white/90"
-          style={{ fontSize: 'clamp(15px, 1.8vw, 19px)' }}
+          style={{ fontSize: 'clamp(16px, 1.8vw, 19px)' }}
         >
           {value}
         </div>
@@ -330,7 +330,7 @@ function Input({
     <label className={`block ${className || ''}`}>
       <div
         className="mb-2 text-white/70"
-        style={{ fontSize: 'clamp(14px, 1.6vw, 17px)' }}
+        style={{ fontSize: 'clamp(16px, 1.6vw, 17px)' }}
       >
         {label} {required && <span className="text-red-500">*</span>}
       </div>
@@ -378,7 +378,7 @@ function TextArea({
     <label className={`block ${className || ''}`}>
       <div
         className="mb-2 text-white/70"
-        style={{ fontSize: 'clamp(14px, 1.6vw, 17px)' }}
+        style={{ fontSize: 'clamp(16px, 1.6vw, 17px)' }}
       >
         {label} {required && <span className="text-red-500">*</span>}
       </div>

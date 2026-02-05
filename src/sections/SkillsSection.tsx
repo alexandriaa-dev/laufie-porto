@@ -140,7 +140,7 @@ export default function SkillsSection() {
                   <li key={it.name} className="space-y-1">
                     <div
                       className="flex items-center justify-between"
-                      style={{ fontSize: 'clamp(15px, 1.7vw, 18px)' }}
+                      style={{ fontSize: 'clamp(16px, 1.7vw, 18px)' }}
                     >
                       <span className="text-white/90">{it.name}</span>
                       <span className="text-white/60">{it.level}%</span>
@@ -199,7 +199,7 @@ export default function SkillsSection() {
               </div>
 
               {/* Label */}
-              <div className="text-white/80" style={{ fontSize: 'clamp(15px, 1.9vw, 18.5px)' }}>
+              <div className="text-white/80" style={{ fontSize: 'clamp(16px, 1.9vw, 18.5px)' }}>
                 <span className="transition-all duration-150 group-hover:font-semibold">
                   {t}
                 </span>

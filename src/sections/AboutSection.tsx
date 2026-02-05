@@ -95,7 +95,7 @@ export default function AboutSection({ ready = true }: AboutSectionProps) {
             <m.div 
               variants={fadeInUp}
               className="prose prose-invert mt-4 max-w-none space-y-4"
-              style={{ fontSize: 'clamp(16px, 3vw, 18.5px)' }}
+              style={{ fontSize: 'clamp(17px, 3vw, 18.5px)' }}
             >
               <p>
                 I&apos;m a creative developer and aspiring data scientist with a strong passion for turning ideas
@@ -147,7 +147,7 @@ export default function AboutSection({ ready = true }: AboutSectionProps) {
           <div className="text-3xl font-bold">{s.value}</div>
           <div
             className="mt-2 text-white/70"
-            style={{ fontSize: 'clamp(15px, 1.9vw, 18.5px)' }}
+            style={{ fontSize: 'clamp(16px, 1.9vw, 18.5px)' }}
           >
             {s.label}
           </div>

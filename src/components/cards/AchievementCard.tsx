@@ -182,7 +182,7 @@ export default function AchievementCard({
               {/* Org + Year (ikon warna khusus: company c2, year c3) */}
               <div
                 className="mt-2 space-y-1"
-                style={{ fontSize: 'clamp(14px, 2.1vw, 18px)' }}
+                style={{ fontSize: 'clamp(16px, 2.1vw, 18px)' }}
               >
                 <div className="flex gap-2 text-white/85">
                   <span className="mt-[3px] flex-shrink-0">

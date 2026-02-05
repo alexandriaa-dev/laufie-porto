@@ -264,7 +264,7 @@ export default function ProjectCard({
       {/* Card body */}
       <div className="p-5">
         <h4 className="text-xl sm:text-2xl font-semibold" style={{ fontSize: 'clamp(18px, 2.5vw, 24px)' }}>{title}</h4>
-        <p className="mt-2 text-white/70" style={{ fontSize: 'clamp(15px, 3vw, 18.5px)' }}>{description}</p>
+        <p className="mt-2 text-white/70" style={{ fontSize: 'clamp(16px, 3vw, 18.5px)' }}>{description}</p>
 
         <div className="mt-3 flex flex-wrap gap-2">
           {techs.map((t) => (
