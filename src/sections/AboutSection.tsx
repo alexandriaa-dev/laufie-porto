@@ -85,7 +85,8 @@ export default function AboutSection({ ready = true }: AboutSectionProps) {
             {/* Judul dengan gradasi var(--grad-4) */}
             <m.h3 
               variants={fadeInUp}
-              className="text-grad-4 text-2xl font-semibold tracking-tight md:text-3xl"
+              className="text-grad-4 text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight"
+              style={{ fontSize: 'clamp(24px, 5vw, 40px)' }}
             >
               Code. Design. Inspire.
             </m.h3>
@@ -94,7 +95,7 @@ export default function AboutSection({ ready = true }: AboutSectionProps) {
             <m.div 
               variants={fadeInUp}
               className="prose prose-invert mt-4 max-w-none space-y-4"
-              style={{ fontSize: 'clamp(10px, 3vw, 18.5px)' }}
+              style={{ fontSize: 'clamp(14px, 3vw, 18.5px)' }}
             >
               <p>
                 I&apos;m a creative developer and aspiring data scientist with a strong passion for turning ideas
@@ -146,7 +147,7 @@ export default function AboutSection({ ready = true }: AboutSectionProps) {
           <div className="text-3xl font-bold">{s.value}</div>
           <div
             className="mt-2 text-white/70"
-            style={{ fontSize: 'clamp(14px, 1.9vw, 18.5px)' }}
+            style={{ fontSize: 'clamp(15px, 1.9vw, 18.5px)' }}
           >
             {s.label}
           </div>

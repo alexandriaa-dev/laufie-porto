@@ -18,7 +18,7 @@ import {
 } from 'lucide-react'
 
 // Ikon untuk 4 grup teratas (disesuaikan dengan data terbaru)
-function GroupIcon({ title, size = 22 }: { title: string; size?: number }) {
+function GroupIcon({ title, size = 24 }: { title: string; size?: number }) {
   const t = title.toLowerCase()
   if (t.includes('data')) return <Brain size={size} />                        // Data Science
   if (t.includes('front')) return <Code2 size={size} />                       // Frontend Development
@@ -29,7 +29,7 @@ function GroupIcon({ title, size = 22 }: { title: string; size?: number }) {
 }
 
 // Ikon untuk Technology Stack (line/simple) — disesuaikan dengan daftar baru
-function TechIcon({ name, size = 30 }: { name: string; size?: number }) {
+function TechIcon({ name, size = 32 }: { name: string; size?: number }) {
   const n = name.toLowerCase()
 
   if (n.includes('microsoft word')) return <FileText size={size} />
@@ -129,10 +129,10 @@ export default function SkillsSection() {
               {/* Card glass: blur meningkat saat hover (isi card) */}
               <div className="glass relative rounded-2xl p-6 overflow-hidden backdrop-blur-sm transition-[backdrop-filter] duration-300 group-hover:backdrop-blur-xl">
                 <div className="mb-4 flex items-center gap-3">
-                  <LogoBubble size={48} gradient={grad}>
+                  <LogoBubble size={52} gradient={grad}>
                     <GroupIcon title={group.title} />
                   </LogoBubble>
-                  <h3 className="text-xl font-semibold">{group.title}</h3>
+                  <h3 className="text-xl sm:text-2xl font-semibold" style={{ fontSize: 'clamp(18px, 2.5vw, 24px)' }}>{group.title}</h3>
                 </div>
 
                 <ul className="space-y-4">
@@ -140,7 +140,7 @@ export default function SkillsSection() {
                   <li key={it.name} className="space-y-1">
                     <div
                       className="flex items-center justify-between"
-                      style={{ fontSize: 'clamp(13px, 1.7vw, 18px)' }}
+                      style={{ fontSize: 'clamp(15px, 1.7vw, 18px)' }}
                     >
                       <span className="text-white/90">{it.name}</span>
                       <span className="text-white/60">{it.level}%</span>
@@ -172,7 +172,7 @@ export default function SkillsSection() {
         <h4 className="mb-6 text-center font-semibold">
           <span
             className="text-grad-4 inline-block"
-            style={{ fontSize: 'clamp(22px, 3.2vw, 32px)' }}
+            style={{ fontSize: 'clamp(24px, 3.2vw, 32px)' }}
           >
             Technology Stack
           </span>
@@ -199,7 +199,7 @@ export default function SkillsSection() {
               </div>
 
               {/* Label */}
-              <div className="text-white/80" style={{ fontSize: 'clamp(14px, 1.9vw, 18.5px)' }}>
+              <div className="text-white/80" style={{ fontSize: 'clamp(15px, 1.9vw, 18.5px)' }}>
                 <span className="transition-all duration-150 group-hover:font-semibold">
                   {t}
                 </span>

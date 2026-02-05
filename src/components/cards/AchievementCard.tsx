@@ -54,18 +54,18 @@ export default function AchievementCard({
   onClick?: () => void
 }) {
   const [isHovered, setIsHovered] = useState(false)
-  const [badgeSize, setBadgeSize] = useState({ fontSize: 11, padding: 'px-2.5 py-1', dot: 'h-1.5 w-1.5' })
-  const [iconSize, setIconSize] = useState(14)
+  const [badgeSize, setBadgeSize] = useState({ fontSize: 12, padding: 'px-2.5 py-1', dot: 'h-1.5 w-1.5' })
+  const [iconSize, setIconSize] = useState(16)
 
   useEffect(() => {
     const updateSize = () => {
       const width = window.innerWidth
       if (width >= 768) {
-        setBadgeSize({ fontSize: 12, padding: 'px-3 py-1.5', dot: 'h-2 w-2' })
-        setIconSize(16)
+        setBadgeSize({ fontSize: 13, padding: 'px-3 py-1.5', dot: 'h-2 w-2' })
+        setIconSize(18)
       } else {
-        setBadgeSize({ fontSize: 11, padding: 'px-2.5 py-1', dot: 'h-1.5 w-1.5' })
-        setIconSize(14)
+        setBadgeSize({ fontSize: 12, padding: 'px-2.5 py-1', dot: 'h-1.5 w-1.5' })
+        setIconSize(16)
       }
     }
     updateSize()
@@ -159,7 +159,7 @@ export default function AchievementCard({
                     backgroundImage: `linear-gradient(90deg, ${gradientFrom}, ${gradientTo})`,
                     WebkitBackgroundClip: 'text',
                     backgroundClip: 'text',
-                    fontSize: 'clamp(17px, 2.1vw, 22px)',
+                    fontSize: 'clamp(18px, 2.1vw, 22px)',
                     lineHeight: 1.25,
                   }}
                 >
@@ -182,7 +182,7 @@ export default function AchievementCard({
               {/* Org + Year (ikon warna khusus: company c2, year c3) */}
               <div
                 className="mt-2 space-y-1"
-                style={{ fontSize: 'clamp(12px, 2.1vw, 18px)' }}
+                style={{ fontSize: 'clamp(14px, 2.1vw, 18px)' }}
               >
                 <div className="flex gap-2 text-white/85">
                   <span className="mt-[3px] flex-shrink-0">

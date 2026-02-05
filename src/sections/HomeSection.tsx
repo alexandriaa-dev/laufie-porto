@@ -71,7 +71,7 @@ export default function HomeSection({ ready = true }: HomeSectionProps) {
       if (width >= 768) {
         setCtaIconSize(24) // tablet & desktop
       } else {
-        setCtaIconSize(20) // mobile
+        setCtaIconSize(22) // mobile - diperbesar
       }
     }
     updateSize()
@@ -130,15 +130,15 @@ export default function HomeSection({ ready = true }: HomeSectionProps) {
             className="font-bold"
             style={{ lineHeight: 1.06 }}
           >
-            <span className="title-gradient inline-block" style={{ fontSize: 'clamp(24px, 6vw, 64px)' }}>Lovi Adiva</span>
+            <span className="title-gradient inline-block" style={{ fontSize: 'clamp(32px, 6vw, 64px)' }}>Lovi Adiva</span>
             <br />
-            <span className="title-gradient inline-block" style={{ fontSize: 'clamp(28px, 7vw, 74px)' }}>Alexandria</span>
+            <span className="title-gradient inline-block" style={{ fontSize: 'clamp(36px, 7vw, 74px)' }}>Alexandria</span>
           </m.h1>
 
           <m.p
             variants={fadeInUp}
             className="mt-4 font-mono sm:mt-6"
-            style={{ fontSize: 'clamp(16px, 5.2vw, 32px)' }}
+            style={{ fontSize: 'clamp(18px, 5.2vw, 32px)' }}
           >
             <TypewriterTitle start={ready} />
           </m.p>
@@ -146,7 +146,7 @@ export default function HomeSection({ ready = true }: HomeSectionProps) {
           <m.p
             variants={fadeInUp}
             className="mx-auto mt-4 max-w-[58ch] text-pretty text-white/70 sm:mt-6 lg:mx-0"
-            style={{ fontSize: 'clamp(10px, 3vw, 20px)' }}
+            style={{ fontSize: 'clamp(13px, 3vw, 20px)' }}
           >
             I blend logic and creativity to craft smart, data-driven, and user-friendly solutions—whether
             through clean code, insightful analysis, or intuitive design.

@@ -73,15 +73,15 @@ function FancyLink({
 function StatusBadge({ status }: { status?: string }) {
   if (!status) return null
   const s = status.toLowerCase()
-  const [badgeSize, setBadgeSize] = useState({ fontSize: 12, padding: 'px-2.5 py-1', icon: 13 })
+  const [badgeSize, setBadgeSize] = useState({ fontSize: 13, padding: 'px-2.5 py-1', icon: 14 })
 
   useEffect(() => {
     const updateSize = () => {
       const width = window.innerWidth
       if (width >= 768) {
-        setBadgeSize({ fontSize: 13, padding: 'px-3 py-1.5', icon: 14 })
+        setBadgeSize({ fontSize: 14, padding: 'px-3 py-1.5', icon: 15 })
       } else {
-        setBadgeSize({ fontSize: 12, padding: 'px-2.5 py-1', icon: 13 })
+        setBadgeSize({ fontSize: 13, padding: 'px-2.5 py-1', icon: 14 })
       }
     }
     updateSize()
@@ -138,7 +138,7 @@ export default function ProjectCard({
 }: Props) {
   // Overlay: tetap ada jika demo/repo terdefinisi (meski kosong)
   const hasOverlay = typeof demo !== 'undefined' || typeof repo !== 'undefined'
-  const [iconSize, setIconSize] = useState(18)
+  const [iconSize, setIconSize] = useState(20)
 
   useEffect(() => {
     const updateSize = () => {
@@ -146,7 +146,7 @@ export default function ProjectCard({
       if (width >= 768) {
         setIconSize(22) // tablet & desktop
       } else {
-        setIconSize(18) // mobile
+        setIconSize(20) // mobile
       }
     }
     updateSize()
@@ -263,8 +263,8 @@ export default function ProjectCard({
 
       {/* Card body */}
       <div className="p-5">
-        <h4 className="text-xl font-semibold">{title}</h4>
-        <p className="mt-2 text-white/70" style={{ fontSize: 'clamp(10px, 3vw, 18.5px)' }}>{description}</p>
+        <h4 className="text-xl sm:text-2xl font-semibold" style={{ fontSize: 'clamp(18px, 2.5vw, 24px)' }}>{title}</h4>
+        <p className="mt-2 text-white/70" style={{ fontSize: 'clamp(13px, 3vw, 18.5px)' }}>{description}</p>
 
         <div className="mt-3 flex flex-wrap gap-2">
           {techs.map((t) => (

@@ -50,7 +50,7 @@ export default function TypewriterTitle({ className, onVacancyChange, start = tr
       } else if (width >= 768) {
         setIconSize(24) // tablet
       } else {
-        setIconSize(22) // mobile
+        setIconSize(24) // mobile - diperbesar
       }
     }
     updateSize()

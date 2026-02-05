@@ -59,7 +59,7 @@ export default function SocialButtons({
       if (width >= 768) {
         setIconSize(26) // tablet & desktop
       } else {
-        setIconSize(22) // mobile
+        setIconSize(24) // mobile - diperbesar
       }
     }
     updateSize()

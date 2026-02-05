@@ -178,7 +178,7 @@ export default function AchievementsSection() {
             <div className="text-3xl font-bold">{s.value}</div>
             <div
               className="mt-1 text-white/70"
-              style={{ fontSize: 'clamp(13px, 1.6vw, 18px)' }}
+              style={{ fontSize: 'clamp(15px, 1.6vw, 18px)' }}
             >
               {s.label}
             </div>

@@ -16,7 +16,7 @@ export default function SectionHeading({
   return (
     <div className={cn('mb-10 text-center', className)}>
       {/* Tidak ada inline-block/inline-flex di wrapper */}
-      <h2 className="text-3xl md:text-5xl font-semibold tracking-tight leading-tight">
+      <h2 className="text-4xl sm:text-5xl md:text-6xl font-semibold tracking-tight leading-tight">
         {/* Matikan inline-block di sini juga */}
         <span className="text-grad-4">{text}</span>
       </h2>
@@ -33,7 +33,7 @@ export default function SectionHeading({
         <p
           className="mt-4 text-white/70 max-w-3xl mx-auto"
           style={{
-            fontSize: 'clamp(14px, 2.05vw, 19px)',
+            fontSize: 'clamp(15px, 2.05vw, 19px)',
             lineHeight: 1.6,
           }}
         >

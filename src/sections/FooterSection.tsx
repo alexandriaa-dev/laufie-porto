@@ -10,7 +10,7 @@ function BrandWithSparkle() {
     <div className="relative inline-block">
       <span
         className="title-gradient inline-block"
-        style={{ fontSize: 'clamp(20px, 3vw, 28px)' }}
+        style={{ fontSize: 'clamp(22px, 3vw, 28px)' }}
       >
         Lovi Adiva Alexandria
       </span>
@@ -76,7 +76,7 @@ export function FooterContent() {
           </div>
           <p
             className="mt-3 text-white/70"
-            style={{ fontSize: 'clamp(13px, 1.7vw, 18.5px)' }}
+            style={{ fontSize: 'clamp(14px, 1.7vw, 18.5px)' }}
           >
             Passionate creator turning ideas into intelligent, user‑centered digital experiences.
           </p>
@@ -95,7 +95,7 @@ export function FooterContent() {
           </div>
           <ul
             className="mt-3 space-y-2 text-white/70"
-            style={{ fontSize: 'clamp(13px, 1.7vw, 18px)' }}
+            style={{ fontSize: 'clamp(14px, 1.7vw, 18px)' }}
           >
             <li><a href="#about" className="hover:text-white">About</a></li>
             <li><a href="#skills" className="hover:text-white">Skills</a></li>
@@ -114,7 +114,7 @@ export function FooterContent() {
           </div>
           <ul
             className="mt-3 space-y-2 text-white/70"
-            style={{ fontSize: 'clamp(13px, 1.7vw, 18px)' }}
+            style={{ fontSize: 'clamp(14px, 1.7vw, 18px)' }}
           >
             <li>{contact.location}</li>  {/* gunakan location saja */}
             <li>{contact.email}</li>
@@ -125,7 +125,7 @@ export function FooterContent() {
 
       <div
         className="mt-10 flex items-center justify-between text-white/50"
-        style={{ fontSize: 'clamp(12px, 1.5vw, 17px)' }}
+        style={{ fontSize: 'clamp(13px, 1.5vw, 17px)' }}
       >
         <span>© 2025 Lovi Adiva Alexandria.</span>
         <BackToTop />
