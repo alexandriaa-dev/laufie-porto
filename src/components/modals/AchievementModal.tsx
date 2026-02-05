@@ -272,7 +272,10 @@ export default function AchievementModal({
                           </div>
 
                           {/* Org + Year */}
-                          <div className="space-y-2 text-sm md:text-base">
+                          <div
+                            className="space-y-2"
+                            style={{ fontSize: 'clamp(13px, 1.7vw, 18.5px)' }}
+                          >
                             <div className="flex items-center gap-2 text-white/85">
                               <Building2 size={18} style={{ color: 'var(--c2)' }} />
                               <span>{achievement?.org || 'Organization'}</span>

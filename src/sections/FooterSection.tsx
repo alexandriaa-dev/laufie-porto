@@ -8,7 +8,12 @@ import { contact } from '@/data/socials'
 function BrandWithSparkle() {
   return (
     <div className="relative inline-block">
-      <span className="title-gradient inline-block">Lovi Adiva Alexandria</span>
+      <span
+        className="title-gradient inline-block"
+        style={{ fontSize: 'clamp(20px, 3vw, 28px)' }}
+      >
+        Lovi Adiva Alexandria
+      </span>
 
       {/* Posisi disetel dekat tapi tidak mepet */}
       <div className="pointer-events-none absolute -right-5 -top-3" aria-hidden>
@@ -69,7 +74,10 @@ export function FooterContent() {
           <div className="text-2xl font-bold">
             <BrandWithSparkle />
           </div>
-          <p className="mt-3 text-white/70">
+          <p
+            className="mt-3 text-white/70"
+            style={{ fontSize: 'clamp(13px, 1.7vw, 18.5px)' }}
+          >
             Passionate creator turning ideas into intelligent, user‑centered digital experiences.
           </p>
 
@@ -79,8 +87,16 @@ export function FooterContent() {
         </div>
 
         <div>
-          <div className="text-lg font-semibold">Quick Links</div>
-          <ul className="mt-3 space-y-2 text-white/70">
+          <div
+            className="font-semibold"
+            style={{ fontSize: 'clamp(15px, 2vw, 19px)' }}
+          >
+            Quick Links
+          </div>
+          <ul
+            className="mt-3 space-y-2 text-white/70"
+            style={{ fontSize: 'clamp(13px, 1.7vw, 18px)' }}
+          >
             <li><a href="#about" className="hover:text-white">About</a></li>
             <li><a href="#skills" className="hover:text-white">Skills</a></li>
             <li><a href="#projects" className="hover:text-white">Projects</a></li>
@@ -90,8 +106,16 @@ export function FooterContent() {
         </div>
 
         <div>
-          <div className="text-lg font-semibold">Get In Touch</div>
-          <ul className="mt-3 space-y-2 text-white/70">
+          <div
+            className="font-semibold"
+            style={{ fontSize: 'clamp(15px, 2vw, 19px)' }}
+          >
+            Get In Touch
+          </div>
+          <ul
+            className="mt-3 space-y-2 text-white/70"
+            style={{ fontSize: 'clamp(13px, 1.7vw, 18px)' }}
+          >
             <li>{contact.location}</li>  {/* gunakan location saja */}
             <li>{contact.email}</li>
             <li>{contact.phone}</li>
@@ -99,7 +123,10 @@ export function FooterContent() {
         </div>
       </div>
 
-      <div className="mt-10 flex items-center justify-between text-sm text-white/50">
+      <div
+        className="mt-10 flex items-center justify-between text-white/50"
+        style={{ fontSize: 'clamp(12px, 1.5vw, 17px)' }}
+      >
         <span>© 2025 Lovi Adiva Alexandria.</span>
         <BackToTop />
       </div>

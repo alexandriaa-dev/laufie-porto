@@ -137,7 +137,12 @@ export default function MobileNav({ activeId, className }: Props) {
                 className="relative z-[1] flex items-center gap-2.5"
               >
                 <ActiveIcon size={16} className="text-white/90" />
-                <span className="text-sm font-semibold text-white">{active.label}</span>
+                <span
+                  className="font-semibold text-white"
+                  style={{ fontSize: 'clamp(13px, 3.2vw, 17.5px)' }}
+                >
+                  {active.label}
+                </span>
               </m.div>
             </AnimatePresence>
           </div>
@@ -325,7 +330,7 @@ export default function MobileNav({ activeId, className }: Props) {
                               isActive ? 'bg-black/10' : 'bg-white/5'
                             )}
                           >
-                            <Icon size={20} />
+                            <Icon size={22} />
                           </m.span>
                           <span className={cn('text-base', isActive && 'font-semibold')}>
                             {it.label}

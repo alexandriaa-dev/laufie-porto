@@ -1,6 +1,6 @@
 import { cn } from '@/lib/utils'
 import { m } from 'framer-motion'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 
 type Props = React.PropsWithChildren<{ className?: string }>
 
@@ -12,15 +12,6 @@ export default function Badge({ children, className }: Props) {
   const innerRef = useRef<HTMLSpanElement | null>(null)
   const [sweepKey, setSweepKey] = useState(0)
 
-  const [inProjects, setInProjects] = useState(false)
-  const [inAchievements, setInAchievements] = useState(false)
-
-  useEffect(() => {
-    if (!rootRef.current) return
-    setInProjects(Boolean(rootRef.current.closest('#projects')))
-    setInAchievements(Boolean(rootRef.current.closest('#achievements')))
-  }, [])
-
   const handleMove = (e: React.MouseEvent<HTMLSpanElement>) => {
     const el = innerRef.current
     if (!el) return
@@ -29,27 +20,15 @@ export default function Badge({ children, className }: Props) {
     el.style.setProperty('--my', `${e.clientY - rect.top}px`)
   }
 
-  // Ukuran:
-  // - Default: besar
-  // - Projects: kecil
-  // - Achievements: lebih kecil dari Projects
-  const sizeDefault = 'px-4 py-2 text-sm'
-  const sizeProjects = 'px-3 py-1.5 text-[12px] leading-[1.15]'
-  const sizeAchievements = 'px-2 py-[2px] text-[11px] leading-[1.1]'
+  // Semua bullet dibuat konsisten ukurannya di seluruh site
+  const sizeClass = 'px-5 py-2.5 text-[15px] leading-[1.15]'
 
-  const sizeClass = inAchievements
-    ? sizeAchievements
-    : inProjects
-    ? sizeProjects
-    : sizeDefault
+  // Motion halus seragam
+  const hoverMotion = { y: -2, scale: 1.02 }
+  const tapMotion = { scale: 0.98 }
 
-  // Motion halus (sedikit lebih kecil untuk badge mini)
-  const hoverMotion =
-    inAchievements ? { y: -1, scale: 1.01 } : inProjects ? { y: -1, scale: 1.01 } : { y: -2, scale: 1.02 }
-  const tapMotion = inAchievements || inProjects ? { scale: 0.995 } : { scale: 0.98 }
-
-  // Titik aksen
-  const dotClass = inAchievements ? 'h-1 w-1' : inProjects ? 'h-1.5 w-1.5' : 'h-2 w-2'
+  // Titik aksen seragam
+  const dotClass = 'h-2 w-2'
 
   // Ring/glare (sama untuk semua, cukup subtle)
   return (
@@ -93,7 +72,7 @@ export default function Badge({ children, className }: Props) {
           aria-hidden
           className={cn('rounded-full bg-[rgba(96,165,250,0.85)] shadow-[0_0_10px_rgba(96,165,250,0.85)]', dotClass)}
         />
-        <span className={cn('font-medium', (inProjects || inAchievements) && 'font-normal')}>{children}</span>
+        <span className="font-medium">{children}</span>
 
         {/* Sweep kilau sekali tiap hover */}
         <m.span
@@ -103,7 +82,7 @@ export default function Badge({ children, className }: Props) {
           style={{
             background:
               'linear-gradient(112deg, rgba(255,255,255,0) 28%, rgba(255,255,255,0.45) 50%, rgba(255,255,255,0) 72%)',
-            filter: inAchievements ? 'blur(8px)' : 'blur(10px)',
+            filter: 'blur(10px)',
           }}
           initial={{ x: '-135%', opacity: 0 }}
           animate={{ x: '135%', opacity: [0, 1, 0] }}
@@ -115,7 +94,7 @@ export default function Badge({ children, className }: Props) {
           aria-hidden
           className={cn(
             'pointer-events-none absolute inset-0 rounded-full mix-blend-screen transition-opacity duration-150',
-            inAchievements ? 'opacity-0 group-hover:opacity-40 blur-[10px]' : 'opacity-0 group-hover:opacity-50 blur-[12px]'
+            'opacity-0 group-hover:opacity-50 blur-[12px]'
           )}
           style={{
             background:

@@ -126,7 +126,7 @@ export default function AboutSection({ ready = true }: AboutSectionProps) {
 
       {/* Stats */}
       <m.div 
-        className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4"
+      className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4"
         variants={staggerContainer(0.1)}
         initial="initial"
         whileInView="animate"
@@ -138,10 +138,19 @@ export default function AboutSection({ ready = true }: AboutSectionProps) {
           { label: 'Competitions Joined', value: '10+' },
           { label: 'Dedication', value: '100%' },
         ].map((s) => (
-          <m.div key={s.label} variants={fadeInUp} className="glass grad-hover rounded-2xl p-6 text-center">
-            <div className="text-3xl font-bold">{s.value}</div>
-            <div className="mt-1 text-sm text-white/70">{s.label}</div>
-          </m.div>
+        <m.div
+          key={s.label}
+          variants={fadeInUp}
+          className="glass group rounded-2xl p-6 text-center grad-hover transition-shadow"
+        >
+          <div className="text-3xl font-bold">{s.value}</div>
+          <div
+            className="mt-2 text-white/70"
+            style={{ fontSize: 'clamp(14px, 1.9vw, 18.5px)' }}
+          >
+            {s.label}
+          </div>
+        </m.div>
         ))}
       </m.div>
     </Section>

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Badge from '@/components/common/Badge'
 import { Trophy, Building2, Calendar } from 'lucide-react'
 import { m, AnimatePresence, type Variants } from 'framer-motion'
@@ -54,6 +54,24 @@ export default function AchievementCard({
   onClick?: () => void
 }) {
   const [isHovered, setIsHovered] = useState(false)
+  const [badgeSize, setBadgeSize] = useState({ fontSize: 11, padding: 'px-2.5 py-1', dot: 'h-1.5 w-1.5' })
+  const [iconSize, setIconSize] = useState(14)
+
+  useEffect(() => {
+    const updateSize = () => {
+      const width = window.innerWidth
+      if (width >= 768) {
+        setBadgeSize({ fontSize: 12, padding: 'px-3 py-1.5', dot: 'h-2 w-2' })
+        setIconSize(16)
+      } else {
+        setBadgeSize({ fontSize: 11, padding: 'px-2.5 py-1', dot: 'h-1.5 w-1.5' })
+        setIconSize(14)
+      }
+    }
+    updateSize()
+    window.addEventListener('resize', updateSize)
+    return () => window.removeEventListener('resize', updateSize)
+  }, [])
 
   const handleMouseLeave = () => {
     setIsHovered(false)
@@ -132,30 +150,48 @@ export default function AchievementCard({
             </div>
 
             <div className="flex-1">
-              <div className="flex items-start justify-between gap-3">
+              {/* Header: title + small status badge (badge di-absolute supaya tidak mengganggu layout judul) */}
+              <div className="relative pr-24">
                 {/* Title gradasi */}
                 <h4
-                  className="text-lg font-semibold text-transparent"
+                  className="font-semibold text-transparent"
                   style={{
                     backgroundImage: `linear-gradient(90deg, ${gradientFrom}, ${gradientTo})`,
                     WebkitBackgroundClip: 'text',
                     backgroundClip: 'text',
+                    fontSize: 'clamp(17px, 2.1vw, 22px)',
+                    lineHeight: 1.25,
                   }}
                 >
                   {title}
                 </h4>
 
-                {badge && <Badge className="-mt-1 bg-white/10">{badge}</Badge>}
+                {badge && (
+                  <div className="absolute right-0.5 top-0.5 origin-top-right">
+                    <span 
+                      className={`inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 ${badgeSize.padding} font-medium text-white/90 backdrop-blur-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.06),0_4px_12px_rgba(0,0,0,0.22)]`}
+                      style={{ fontSize: `${badgeSize.fontSize}px` }}
+                    >
+                      <span className={`${badgeSize.dot} rounded-full bg-[rgba(96,165,250,0.85)] shadow-[0_0_6px_rgba(96,165,250,0.85)]`} />
+                      {badge}
+                    </span>
+                  </div>
+                )}
               </div>
 
               {/* Org + Year (ikon warna khusus: company c2, year c3) */}
-              <div className="mt-2 text-sm" style={{ fontSize: 'clamp(10px, 3vw, 17px)' }}> 
-                <div className="flex items-center gap-2 text-white/85">
-                  <Building2 size={16} style={{ color: 'var(--c2)' }} />
-                  <span>{org}</span>
+              <div
+                className="mt-2 space-y-1"
+                style={{ fontSize: 'clamp(12px, 2.1vw, 18px)' }}
+              >
+                <div className="flex gap-2 text-white/85">
+                  <span className="mt-[3px] flex-shrink-0">
+                    <Building2 size={iconSize} style={{ color: 'var(--c2)' }} />
+                  </span>
+                  <span className="leading-snug">{org}</span>
                 </div>
-                <div className="mt-1 flex items-center gap-2 text-white/70">
-                  <Calendar size={16} style={{ color: 'var(--c3)' }} />
+                <div className="flex items-center gap-2 text-white/70">
+                  <Calendar size={iconSize} style={{ color: 'var(--c3)' }} />
                   <span>{year}</span>
                 </div>
               </div>

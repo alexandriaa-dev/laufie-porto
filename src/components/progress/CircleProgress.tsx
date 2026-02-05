@@ -26,8 +26,8 @@ export default function CircleProgress() {
     }
   }, [])
 
-  const size = isMdUp ? 48 : 36
-  const stroke = isMdUp ? 2 : 1.8
+  const size = isMdUp ? 56 : 42
+  const stroke = isMdUp ? 2.4 : 2
   const r = (size - stroke) / 2
   const C = 2 * Math.PI * r
   const offset = C * (1 - p)
@@ -75,7 +75,7 @@ export default function CircleProgress() {
       <span
         className="
           absolute font-semibold text-white/80
-          text-[10px] md:text-[11px]
+          text-[11px] md:text-[12px]
         "
       >
         {formatPercent(p)}

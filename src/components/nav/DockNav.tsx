@@ -12,7 +12,7 @@ export default function DockNav({ activeId }: { activeId: string }) {
   // Indikator: target posisi (x/y) – ukuran konstan
   const targetX = useMotionValue(0)
   const targetY = useMotionValue(0)
-  const INDICATOR_SIZE = 32
+  const INDICATOR_SIZE = 38
 
   // Spring smooth (tanpa bounce)
   const springCfg = { stiffness: 280, damping: 40, mass: 1 }
@@ -79,7 +79,7 @@ export default function DockNav({ activeId }: { activeId: string }) {
     >
       <div
         ref={containerRef}
-        className="glass shadow-rim relative flex items-center gap-2 rounded-2xl px-3 py-2 backdrop-blur-xl"
+        className="glass shadow-rim relative flex items-center gap-2 rounded-2xl px-4 py-3 backdrop-blur-xl"
         style={{ position: 'relative' }}
       >
         {/* Indikator aktif: gradasi warna ke-2 → ke-3 (c2 → c3) */}
@@ -99,12 +99,12 @@ export default function DockNav({ activeId }: { activeId: string }) {
               href={`#${it.id}`}
               onClick={(e) => handleNavClick(e, it.id)}
               className={cn(
-                'relative z-10 grid place-items-center rounded-xl p-2 transition-colors',
+                'relative z-10 grid place-items-center rounded-xl p-2.5 transition-colors',
                 active ? 'text-white' : 'text-white/55 hover:text-white',
               )}
               aria-label={it.label}
             >
-              <Icon size={20} />
+              <Icon size={22} />
             </a>
           )
         })}

@@ -137,11 +137,14 @@ export default function SkillsSection() {
 
                 <ul className="space-y-4">
                   {group.items.map((it) => (
-                    <li key={it.name} className="space-y-1">
-                      <div className="flex items-center justify-between text-sm">
-                        <span className="text-white/90">{it.name}</span>
-                        <span className="text-white/60">{it.level}%</span>
-                      </div>
+                  <li key={it.name} className="space-y-1">
+                    <div
+                      className="flex items-center justify-between"
+                      style={{ fontSize: 'clamp(13px, 1.7vw, 18px)' }}
+                    >
+                      <span className="text-white/90">{it.name}</span>
+                      <span className="text-white/60">{it.level}%</span>
+                    </div>
                       <div className="h-2 rounded-full bg-white/10 overflow-hidden">
                         <div
                           className="h-full rounded-full"
@@ -166,8 +169,13 @@ export default function SkillsSection() {
         whileInView="animate"
         viewport={{ once: true }}
       >
-        <h4 className="mb-5 text-center text-2xl font-semibold">
-          <span className="text-grad-4 inline-block">Technology Stack</span>
+        <h4 className="mb-6 text-center font-semibold">
+          <span
+            className="text-grad-4 inline-block"
+            style={{ fontSize: 'clamp(22px, 3.2vw, 32px)' }}
+          >
+            Technology Stack
+          </span>
         </h4>
 
         <m.div 
@@ -191,7 +199,7 @@ export default function SkillsSection() {
               </div>
 
               {/* Label */}
-              <div className="text-white/80">
+              <div className="text-white/80" style={{ fontSize: 'clamp(14px, 1.9vw, 18.5px)' }}>
                 <span className="transition-all duration-150 group-hover:font-semibold">
                   {t}
                 </span>

@@ -11,7 +11,7 @@ import {
   Hourglass,
   Archive,
 } from 'lucide-react'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 type Props = {
   title: string
@@ -38,7 +38,7 @@ function FancyLink({
   const hasUrl = Boolean(href && href.trim() !== '')
 
   const commonClass =
-    'group/btn inline-flex items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.03] px-3 py-2 text-white/90 backdrop-blur-md transition-colors duration-200 hover:bg-white/[0.12]'
+    'group/btn inline-flex items-center gap-2 rounded-lg border border-white/[0.08] bg-white/[0.03] px-3.5 py-2.5 text-[16px] font-semibold text-white/90 backdrop-blur-md transition-colors duration-200 hover:bg-white/[0.12]'
 
   // Pisahkan ikon (anak pertama) agar bisa diberi anim rotate
   const nodes = React.Children.toArray(children)
@@ -73,10 +73,25 @@ function FancyLink({
 function StatusBadge({ status }: { status?: string }) {
   if (!status) return null
   const s = status.toLowerCase()
+  const [badgeSize, setBadgeSize] = useState({ fontSize: 12, padding: 'px-2.5 py-1', icon: 13 })
+
+  useEffect(() => {
+    const updateSize = () => {
+      const width = window.innerWidth
+      if (width >= 768) {
+        setBadgeSize({ fontSize: 13, padding: 'px-3 py-1.5', icon: 14 })
+      } else {
+        setBadgeSize({ fontSize: 12, padding: 'px-2.5 py-1', icon: 13 })
+      }
+    }
+    updateSize()
+    window.addEventListener('resize', updateSize)
+    return () => window.removeEventListener('resize', updateSize)
+  }, [])
 
   // Wrapper: border tipis abu, backdrop blur, shadow halus; teks & border tajam
   const wrapperClass =
-    'absolute right-3 top-3 z-20 inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-medium text-white overflow-hidden backdrop-blur-md border-[0.5px] border-white/20 shadow-[0_6px_14px_rgba(0,0,0,0.22),0_0_0_1px_rgba(255,255,255,0.05)]'
+    `absolute right-3 top-3 z-20 inline-flex items-center gap-1.5 rounded-full ${badgeSize.padding} font-semibold text-white overflow-hidden backdrop-blur-md border-[0.5px] border-white/20 shadow-[0_6px_14px_rgba(0,0,0,0.22),0_0_0_1px_rgba(255,255,255,0.05)]`
 
   // Overlay background: sama untuk semua status (c2 → c3), opacity agak kuat, blur lembut
   const overlayStyle: React.CSSProperties = {
@@ -87,20 +102,20 @@ function StatusBadge({ status }: { status?: string }) {
 
   // Pilih ikon sesuai status, SEMUA warna putih
   let icon: React.ReactNode = null
-  if (s === 'completed') icon = <CheckCircle2 size={14} className="text-white" />
+  if (s === 'completed') icon = <CheckCircle2 size={badgeSize.icon} className="text-white" />
   else if (s === 'in progress' || s === 'progress' || s === 'ongoing')
-    icon = <Clock size={14} className="text-white" />
+    icon = <Clock size={badgeSize.icon} className="text-white" />
   else if (s === 'coming soon' || s === 'planned' || s === 'preview')
-    icon = <Hourglass size={14} className="text-white" />
+    icon = <Hourglass size={badgeSize.icon} className="text-white" />
   else if (s === 'archived' || s === 'deprecated')
-    icon = <Archive size={14} className="text-white" />
+    icon = <Archive size={badgeSize.icon} className="text-white" />
 
   return (
     <span className={wrapperClass}>
       {/* Background overlay (opacity + blur) */}
       <span aria-hidden className="pointer-events-none absolute inset-0" style={overlayStyle} />
       {/* Konten tajam di atas overlay */}
-      <span className="relative z-10 inline-flex items-center gap-1">
+      <span className="relative z-10 inline-flex items-center gap-1" style={{ fontSize: `${badgeSize.fontSize}px` }}>
         {icon}
         {status}
       </span>
@@ -123,6 +138,21 @@ export default function ProjectCard({
 }: Props) {
   // Overlay: tetap ada jika demo/repo terdefinisi (meski kosong)
   const hasOverlay = typeof demo !== 'undefined' || typeof repo !== 'undefined'
+  const [iconSize, setIconSize] = useState(18)
+
+  useEffect(() => {
+    const updateSize = () => {
+      const width = window.innerWidth
+      if (width >= 768) {
+        setIconSize(22) // tablet & desktop
+      } else {
+        setIconSize(18) // mobile
+      }
+    }
+    updateSize()
+    window.addEventListener('resize', updateSize)
+    return () => window.removeEventListener('resize', updateSize)
+  }, [])
 
   return (
     <div className={cn('glass overflow-hidden rounded-2xl', className)}>
@@ -156,14 +186,14 @@ export default function ProjectCard({
               const content = (
                 <>
                   <span className="transform-gpu transition-transform duration-700 ease-in-out group-hover/btn:rotate-[360deg]">
-                    <Ext size={18} />
+                    <Ext size={iconSize} />
                   </span>
                   Live Demo
                 </>
               )
 
               const common =
-                'group/btn inline-flex flex-1 items-center justify-center gap-2 rounded-lg px-4 py-[6px] text-[14px] font-medium text-white ring-1 ring-white/18 transition-transform duration-200 hover:scale-[1.01] active:scale-[0.99] backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.45),0_0_0_1px_rgba(255,255,255,0.14)]'
+                'group/btn inline-flex flex-1 items-center justify-center gap-2 rounded-lg px-4 py-[7px] text-[15px] font-semibold text-white ring-1 ring-white/18 transition-transform duration-200 hover:scale-[1.01] active:scale-[0.99] backdrop-blur-md shadow-[0_10px_30px_rgba(0,0,0,0.45),0_0_0_1px_rgba(255,255,255,0.14)]'
 
               return available ? (
                 <a
@@ -198,7 +228,7 @@ export default function ProjectCard({
               const available = Boolean(repo && repo.trim() !== '')
               const inner = (
                 <span className="transform-gpu transition-transform duration-700 ease-in-out group-hover/btn:rotate-[360deg]">
-                  <Github size={18} className="text-black" />
+                  <Github size={iconSize} className="text-black" />
                 </span>
               )
 
@@ -247,10 +277,10 @@ export default function ProjectCard({
         {/* CTA bawah card (selalu tampil; kalau URL kosong → toast); ikon ikut rotate */}
         <div className="mt-4 flex flex-wrap gap-3">
           <FancyLink href={demo ? normalizeUrl(demo) : undefined} onUnavailable={onUnavailable}>
-            <Ext size={18} /> View Project
+            <Ext size={iconSize} /> View Project
           </FancyLink>
           <FancyLink href={repo ? normalizeUrl(repo) : undefined} onUnavailable={onUnavailable}>
-            <Github size={18} /> Source Code
+            <Github size={iconSize} /> Source Code
           </FancyLink>
         </div>
       </div>

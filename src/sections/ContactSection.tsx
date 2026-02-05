@@ -88,8 +88,16 @@ export default function ContactSection() {
           />
 
           <div className="glass rounded-2xl p-5">
-            <div className="text-lg font-semibold">Available for Freelance</div>
-            <p className="mt-2 text-white/70">
+            <div
+              className="font-semibold"
+              style={{ fontSize: 'clamp(16px, 2.1vw, 20px)' }}
+            >
+              Available for Freelance
+            </div>
+            <p
+              className="mt-2 text-white/70"
+              style={{ fontSize: 'clamp(13px, 1.8vw, 19px)' }}
+            >
               I&apos;m currently available for freelance projects and consulting work. Let&apos;s discuss how we
               can bring your ideas to life.
             </p>
@@ -279,8 +287,18 @@ function ContactCard({
       </div>
 
       <div className="min-w-0">
-        <div className="text-sm text-white/70">{label}</div>
-        <div className="truncate font-medium text-white/90">{value}</div>
+        <div
+          className="text-white/70"
+          style={{ fontSize: 'clamp(12px, 1.6vw, 17.5px)' }}
+        >
+          {label}
+        </div>
+        <div
+          className="truncate font-medium text-white/90"
+          style={{ fontSize: 'clamp(13px, 1.8vw, 19px)' }}
+        >
+          {value}
+        </div>
       </div>
 
       <Zap
@@ -310,7 +328,10 @@ function Input({
 }: React.InputHTMLAttributes<HTMLInputElement> & { label: string; className?: string }) {
   return (
     <label className={`block ${className || ''}`}>
-      <div className="mb-2 text-sm text-white/70">
+      <div
+        className="mb-2 text-white/70"
+        style={{ fontSize: 'clamp(12px, 1.6vw, 17px)' }}
+      >
         {label} {required && <span className="text-red-500">*</span>}
       </div>
 
@@ -355,7 +376,10 @@ function TextArea({
 }: React.TextareaHTMLAttributes<HTMLTextAreaElement> & { label: string; className?: string }) {
   return (
     <label className={`block ${className || ''}`}>
-      <div className="mb-2 text-sm text-white/70">
+      <div
+        className="mb-2 text-white/70"
+        style={{ fontSize: 'clamp(12px, 1.6vw, 17px)' }}
+      >
         {label} {required && <span className="text-red-500">*</span>}
       </div>
 

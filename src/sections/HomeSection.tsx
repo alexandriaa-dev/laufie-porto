@@ -4,7 +4,7 @@ import { fadeInUp, staggerContainer } from '@/lib/motion/variants'
 import { Download, ArrowRight, Sparkles, Star, Palette, ChevronDown } from 'lucide-react'
 import HeroOrbit from '@/components/fx/HeroOrbit'
 import TypewriterTitle from '@/components/common/TypewriterTitle'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import SocialButtons from '@/components/common/SocialButtons'
 import { useToast } from '@/providers/ToastProvider'
 
@@ -28,11 +28,14 @@ function CTAButton({ href, label, icon, variant, onClick, downloadName }: CTABut
       download={downloadName ? downloadName : undefined}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className={`relative inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium
+      className={`relative inline-flex items-center gap-2 rounded-lg px-5 py-2.5 font-semibold
                   overflow-hidden transition-all duration-200
-                  md:rounded-xl md:px-5 md:py-3 md:text-base
+                  md:rounded-xl md:px-6 md:py-3
                   ${isSolid ? 'text-white' : 'border border-white/15 bg-white/5 text-white'}`}
-      style={isSolid ? { background: 'transparent' } : undefined}
+      style={{
+        ...(isSolid ? { background: 'transparent' } : {}),
+        fontSize: 'clamp(15px, 2.3vw, 18.5px)',
+      }}
     >
       <m.span
         aria-hidden
@@ -60,6 +63,21 @@ type HomeSectionProps = {
 export default function HomeSection({ ready = true }: HomeSectionProps) {
   const { toast } = useToast()
   const cvUrl = `${import.meta.env.BASE_URL}Lovi-Adiva-Alexandria-CV.pdf`
+  const [ctaIconSize, setCtaIconSize] = useState(20)
+
+  useEffect(() => {
+    const updateSize = () => {
+      const width = window.innerWidth
+      if (width >= 768) {
+        setCtaIconSize(24) // tablet & desktop
+      } else {
+        setCtaIconSize(20) // mobile
+      }
+    }
+    updateSize()
+    window.addEventListener('resize', updateSize)
+    return () => window.removeEventListener('resize', updateSize)
+  }, [])
 
   const handleDownloadCV = async (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault()
@@ -93,7 +111,7 @@ export default function HomeSection({ ready = true }: HomeSectionProps) {
   }
 
   return (
-    <Section id="home" className="relative pt-28 sm:pt-32 lg:pt-36">
+    <Section id="home" className="relative pt-24 sm:pt-28 lg:pt-32">
       <div className="flex flex-col items-center justify-center gap-6 sm:gap-8 lg:gap-10 lg:grid lg:grid-cols-2 lg:items-center lg:justify-items-stretch">
         <m.div
           variants={staggerContainer()}
@@ -138,12 +156,12 @@ export default function HomeSection({ ready = true }: HomeSectionProps) {
             variants={fadeInUp}
             className="mt-6 flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 lg:justify-start"
           >
-            <CTAButton href="#about" label="View More" variant="primary" icon={<ArrowRight size={16} />} />
+            <CTAButton href="#about" label="View More" variant="primary" icon={<ArrowRight size={ctaIconSize} />} />
             <CTAButton
               href={cvUrl}
               label="Download CV"
               variant="outline"
-              icon={<Download size={16} />}
+              icon={<Download size={ctaIconSize} />}
               downloadName="Lovi-Adiva-Alexandria-CV.pdf"
               onClick={handleDownloadCV}
             />

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { socials } from '@/data/socials'
 import { cn } from '@/lib/utils'
 
@@ -15,7 +15,7 @@ function SocialButton({
     <div className="group relative inline-block">
       <a
         href={href}
-        className="glass grid h-12 w-12 place-items-center rounded-xl transition-transform duration-200 group-hover:rotate-45 relative"
+        className="glass grid h-[52px] w-[52px] md:h-[56px] md:w-[56px] place-items-center rounded-2xl transition-transform duration-200 group-hover:rotate-45 relative"
         target="_blank"
         rel="noreferrer"
         aria-label={label}
@@ -51,11 +51,27 @@ export default function SocialButtons({
   className?: string
   items?: typeof socials
 }) {
+  const [iconSize, setIconSize] = useState(22)
+
+  useEffect(() => {
+    const updateSize = () => {
+      const width = window.innerWidth
+      if (width >= 768) {
+        setIconSize(26) // tablet & desktop
+      } else {
+        setIconSize(22) // mobile
+      }
+    }
+    updateSize()
+    window.addEventListener('resize', updateSize)
+    return () => window.removeEventListener('resize', updateSize)
+  }, [])
+
   return (
-    <div className={cn('flex items-center gap-3', className)}>
+    <div className={cn('flex items-center gap-3.5', className)}>
       {items.map(({ label, icon: Icon, url }) => (
         <SocialButton key={label} href={url} label={label}>
-          <Icon />
+          <Icon size={iconSize} />
         </SocialButton>
       ))}
     </div>

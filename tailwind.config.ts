@@ -40,7 +40,7 @@ export default {
         glow: '0 0 40px rgba(0,98,255,0.35)',
       },
       backdropBlur: { xs: '2px' },
-      maxWidth: { container: '1200px' },
+      maxWidth: { container: '1320px' },
       borderRadius: { xl: '16px', '2xl': '24px' },
     },
   },

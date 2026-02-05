@@ -37,8 +37,26 @@ export default function TypewriterTitle({ className, onVacancyChange, start = tr
   const [phase, setPhase] = useState<Phase>(start ? 'typing' : 'pausing')
   const [subIdx, setSubIdx] = useState(0)
   const [hasStarted, setHasStarted] = useState(start)
+  const [iconSize, setIconSize] = useState(22)
 
   const prevEmpty = useRef<boolean>(false)
+
+  // Responsive icon size
+  useEffect(() => {
+    const updateSize = () => {
+      const width = window.innerWidth
+      if (width >= 1024) {
+        setIconSize(28) // desktop
+      } else if (width >= 768) {
+        setIconSize(24) // tablet
+      } else {
+        setIconSize(22) // mobile
+      }
+    }
+    updateSize()
+    window.addEventListener('resize', updateSize)
+    return () => window.removeEventListener('resize', updateSize)
+  }, [])
 
   // Handle start prop - when start becomes true, begin typewriter
   useEffect(() => {
@@ -134,7 +152,7 @@ export default function TypewriterTitle({ className, onVacancyChange, start = tr
           style={{ transformOrigin: '50% 50%' }}
           className="ml-3 text-blue-400/90"
         >
-          <CurrentIcon size={22} strokeWidth={1.8} />
+          <CurrentIcon size={iconSize} strokeWidth={1.8} />
         </m.span>
       </AnimatePresence>
     </span>

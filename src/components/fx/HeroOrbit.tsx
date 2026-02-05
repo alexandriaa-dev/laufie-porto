@@ -25,7 +25,7 @@ function Twinkle({ size = 6, duration = 1.8, delay = 0, className = '' }: Twinkl
 export default function HeroOrbit() {
   return (
     // Pakai aspect-square agar selalu lingkaran (width === height) di semua ukuran, termasuk tablet
-    <div className="relative mx-auto grid place-items-center aspect-square w-[min(92vw,420px)] sm:w-[min(92vw,480px)] md:w-[560px]">
+    <div className="relative mx-auto grid place-items-center aspect-square w-[min(92vw,440px)] sm:w-[min(92vw,520px)] md:w-[600px]">
       {/* Orbit rings */}
       <div
         className="absolute inset-0 rounded-full border border-white/25 opacity-30 orbit-ring"
@@ -79,12 +79,12 @@ export default function HeroOrbit() {
             alt="Avatar"
             fallback="/favicon.svg"
             className="
-              h-[270px] w-[270px]
-              sm:h-[270px] sm:w-[270px]
-              md:h-[350px] md:w-[350px]
-              lg:h-[300px] lg:w-[300px]
-              lgx:h-[340px] lgx:w-[340px]
-              xl:h-[340px] xl:w-[340px]
+              h-[290px] w-[290px]
+              sm:h-[310px] sm:w-[310px]
+              md:h-[380px] md:w-[380px]
+              lg:h-[340px] lg:w-[340px]
+              lgx:h-[380px] lgx:w-[380px]
+              xl:h-[380px] xl:w-[380px]
               transform transition-transform duration-700 ease-out will-change-transform group-hover:scale-110
             "
           />

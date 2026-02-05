@@ -48,11 +48,9 @@ function seededShuffle<T>(arr: T[], seed: number) {
   return a
 }
 
-const COLORS = ['var(--c1)', 'var(--c2)', 'var(--c3)', 'var(--c4)'] as const
-// Semua pasangan terurut yang berbeda (12 kombinasi)
-const ALL_PAIRS: [string, string][] = COLORS.flatMap((cA) =>
-  COLORS.filter((cB) => cB !== cA).map((cB) => [cA, cB] as [string, string])
-)
+// Satu palet gradasi utama untuk SEMUA card Achievements/Experience
+// Disamakan agar tampilan konsisten dan mudah dibaca.
+const ACHIEVEMENT_GRADIENT: [string, string] = ['var(--c2)', 'var(--c3)']
 
 type TabKey = 'award' | 'experience'
 const TABS: { key: TabKey; label: string }[] = [
@@ -65,10 +63,6 @@ function matchesTab(a: Achievement, tab: TabKey): boolean {
 }
 
 export default function AchievementsSection() {
-  // Seed stabil berdasar daftar achievements (judul)
-  const seed = hashSeed(achievements.map((a) => a.title).join('|'))
-  const PAIRS = seededShuffle(ALL_PAIRS, seed)
-
   // Filter state
   const [active, setActive] = useState<TabKey>('award')
   const [pill, setPill] = useState({ left: 0, width: 0 })
@@ -136,8 +130,8 @@ export default function AchievementsSection() {
         whileInView="animate"
         viewport={{ once: true, amount: 0.3 }}
       >
-        {achievementsStats.map((s) => (
-          <m.div key={s.label} variants={fadeInUp} className="glass grad-hover group relative overflow-hidden rounded-2xl p-6 text-center">
+            {achievementsStats.map((s) => (
+            <m.div key={s.label} variants={fadeInUp} className="glass grad-hover group relative overflow-hidden rounded-2xl p-6 text-center">
             {/* Icon bubble */}
             <div className="mb-4 grid place-items-center">
               <div
@@ -182,7 +176,12 @@ export default function AchievementsSection() {
             </div>
 
             <div className="text-3xl font-bold">{s.value}</div>
-            <div className="mt-1 text-sm text-white/70">{s.label}</div>
+            <div
+              className="mt-1 text-white/70"
+              style={{ fontSize: 'clamp(13px, 1.6vw, 18px)' }}
+            >
+              {s.label}
+            </div>
           </m.div>
         ))}
       </m.div>
@@ -263,8 +262,7 @@ export default function AchievementsSection() {
               viewport={{ once: true, amount: 0.3 }}
             >
               {filtered.map((a, i) => {
-                const originalIndex = achievements.findIndex((ach) => ach.id === a.id)
-                const [from, to] = PAIRS[originalIndex % PAIRS.length] // tidak akan sama berurutan
+                const [from, to] = ACHIEVEMENT_GRADIENT
                 return (
                   <m.div key={a.id} variants={fadeInUp}>
                     <AchievementCard
@@ -291,12 +289,12 @@ export default function AchievementsSection() {
         onClose={handleCloseModal}
         gradientFrom={
           selectedAchievement
-            ? PAIRS[achievements.findIndex((a) => a.id === selectedAchievement.id) % PAIRS.length][0]
+            ? ACHIEVEMENT_GRADIENT[0]
             : 'var(--c2)'
         }
         gradientTo={
           selectedAchievement
-            ? PAIRS[achievements.findIndex((a) => a.id === selectedAchievement.id) % PAIRS.length][1]
+            ? ACHIEVEMENT_GRADIENT[1]
             : 'var(--c3)'
         }
       />

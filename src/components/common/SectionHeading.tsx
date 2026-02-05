@@ -30,7 +30,13 @@ export default function SectionHeading({
       </div>
 
       {subtitle && (
-        <p className="mt-4 text-base text-white/70 max-w-3xl mx-auto">
+        <p
+          className="mt-4 text-white/70 max-w-3xl mx-auto"
+          style={{
+            fontSize: 'clamp(14px, 2.05vw, 19px)',
+            lineHeight: 1.6,
+          }}
+        >
           {subtitle}
         </p>
       )}

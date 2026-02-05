@@ -22,8 +22,11 @@ export default function ConstructionAlert() {
       className="fixed top-0 left-0 right-0 z-[9999] pointer-events-none"
     >
       <div className="bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 backdrop-blur-sm border-b border-amber-400/30 shadow-lg">
-        <div className="container mx-auto px-4 py-1 text-center">
-          <p className="text-xs sm:text-sm font-semibold text-white tracking-wide">
+        <div className="container mx-auto px-4 py-1.5 text-center">
+          <p
+            className="font-semibold text-white tracking-wide"
+            style={{ fontSize: 'clamp(11px, 2.3vw, 15px)' }}
+          >
             ⚠️ Web Under Construction ⚠️
           </p>
         </div>
